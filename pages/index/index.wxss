@@ -1,0 +1,49 @@
+/**index.wxss**/
+swiper{
+  /* width: 80%;margin: auto; */
+  padding: 0 8%;
+  display: block;height:900rpx;
+  overflow: visible!important;zoom: 1;text-align: center;
+}
+.box{padding: 10rpx;box-sizing: border-box;display: flex;
+justify-content: center;align-items: center;text-align: center;}
+.banner-image{
+  width: 560rpx;height: 750rpx;
+}
+.banner-warp{
+  width: 560rpx;
+  display: inline-block;
+box-shadow: 0 0 5px 0 #999;
+}
+.subscript{
+  font-size: 12px;margin: 30rpx 0;
+  display: inline-block;padding: 6rpx 12rpx;border: 1px dashed #333;
+}
+.nav-warp{
+  margin: 20rpx 0;
+}
+.title{
+  font-size: 20px;
+}
+.nav-warp .subTitle{
+  font-size: 10px;margin-top: 10rpx;color: #666;
+}
+.part-warp{
+  padding-bottom: 80rpx;border-bottom: 30rpx #eee solid;
+}
+.badge{
+  width: 50rpx;height: 70rpx;background: #ccc;font-size: 18px;color: white;text-align: center;font-family: "宋体";font-style: italic;
+}
+.pic{width: calc(100% - 70rpx);display: inline-block;box-sizing: border-box;box-shadow: 0 0 5px 0 #eee;padding-bottom: 20rpx;margin: 0 10rpx;}
+.pic .describe,.pic .text-sm{padding: 10rpx 20rpx;}
+.describe{
+  font-size: 14px;padding: 10rpx;box-sizing: border-box;
+}
+.item{margin: 20rpx 0;}
+
+
+
+
+
+
+

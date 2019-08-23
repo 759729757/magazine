@@ -1,0 +1,37 @@
+<!--pages/magazine/magazine.wxml-->
+<view class="full warp">
+  <swiper 
+    autoplay="{{autoplay}}" circular
+    bindanimationfinish="bannerChange"
+    >
+    <block wx:for="{{data.banner}}" wx:key>
+      <swiper-item class='box'>
+        <view class="banner-warp flex-col">
+          <image src="{{item}}" mode="widthFix" class="banner-image" />
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+  <view class="cover-bg">
+    <view class="warp flex-col text-white">
+      <text class="describe">已有{{data.sold}}订阅</text>
+      <text class="title">{{data.title}}</text>
+      <view class="describe">
+        查看订阅详情 
+        <image src="/images/link.png" class="icon"></image>
+      </view>
+      <view class="flex btn-warp">
+        <view>阅读</view>
+        |
+        <view>订阅</view>
+      </view>
+      <view class="icon-warp">
+       <image src="/images/down.png" class="icon"></image>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="container session">
+  <view class="a-line title">{{data.title}}</view>
+  <view class="content">{{data.describe}}</view>
+</view>

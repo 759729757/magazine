@@ -1,0 +1,4 @@
+<view class="input-search">
+  <image class="icon" src="/images/search.png"></image>
+  <input auto-focus="true" placeholder="搜索您感兴趣的电子刊"></input>
+</view>

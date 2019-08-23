@@ -1,0 +1,43 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/all/all",
+    "pages/mine/mine",
+    "pages/magazine/magazine",
+    "pages/magazine/detail",
+    "pages/search/search",
+    "pages/logs/logs"
+  ],
+  "tabBar": {
+    "color": "#2c2c2c",
+    "selectedColor": "#d81e06",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "推荐",
+        "iconPath": "images/_recommend.png",
+        "selectedIconPath": "images/recommend.png"
+      },
+      {
+        "pagePath": "pages/all/all",
+        "text": "全部期刊",
+        "iconPath": "images/_book.png",
+        "selectedIconPath": "images/book.png"
+      },
+      {
+        "pagePath": "pages/mine/mine",
+        "text": "个人中心",
+        "iconPath": "images/_me.png",
+        "selectedIconPath": "images/me.png"
+      }
+    ]
+  },
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "sitemapLocation": "sitemap.json"
+}

@@ -1,0 +1,22 @@
+<view class="input-search" bindtap="goSearch">
+  <image class="icon" src="/images/search.png"></image>
+  <text class="input">搜索您感兴趣的电子刊</text>
+</view>
+<view class="hr"></view>
+<view class="session flex-left">
+  <view class="tab {{index==tabIndex ? 'active':''}}" 
+  bindtap="chooseTab" data-index="{{index}}"
+  wx:for='{{tab}}' wx:key>{{item.name}}</view>
+</view>
+<view class="flex content">
+   <view wx:for='{{data}}' wx:key class="item-5">
+    <view class="shadow">
+      <image class="pic" mode="widthFix" src="{{item.image}}"></image>
+      <view class="describe">{{item.title}}</view>
+      <view class="text-sm">
+        <text>{{item.sold}} 订阅</text>
+      </view>
+    </view>
+   </view>
+</view>
+

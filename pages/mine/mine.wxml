@@ -1,0 +1,56 @@
+<view class="container session flex">
+  <view class="item-3 flex-col">
+    <image src="/images/chat.png" class="icon"></image>
+    <text class="text-sm">客户服务</text>
+  </view>
+  <view class="item-3 flex-col">
+    <image src="https://img7.iqiyipic.com/passport/20190717/a4/f4/passport_1625790851_156336696712239_130_130.jpg" 
+    class="headImg"></image>
+    <text class="text-lg">西外</text>
+  </view>
+  <view class="item-3 flex-col">
+    <image src="/images/vip.png" class="icon"></image>
+    <text class="text-sm">会员中心</text>
+  </view>
+</view>
+
+<view class="flex text-center tab-warp">
+  <view class="item-5 {{tabIndex==0?'active':''}}"
+  bindtap="setTab" 
+  data-index="0">已购杂志</view>
+  <view class="item-5 {{tabIndex==1?'active':''}}"
+  bindtap="setTab" 
+   data-index="1">阅读码</view>
+</view>
+
+<view wx:if="{{tabIndex==0}}">
+  <view class="flex-left content">
+    <view wx:for='{{tab1}}' wx:key class="item-5">
+      <view class="shadow">
+        <image class="pic" mode="widthFix" src="{{item.image}}"></image>
+        <view class="describe">{{item.title}}</view>
+    
+      </view>
+    </view>
+  </view>
+</view>
+
+<view wx:if="{{tabIndex==1}}">
+  <view class="flex-left content">
+    <view wx:for='{{tab2}}' wx:key class="media">
+      <image class="pic2" mode="widthFix" src="{{item.image}}"></image>
+      <view class="flex-col">
+        <view>
+          <text class="title a-line">{{item.title}}</text>
+          <view class="describe">{{item.describe}}</view>   
+        </view>
+        <view class="flex-icon read-code">
+          <text>我的阅读码</text>
+          <image src="/images/next.png" class="icon"></image>
+        </view>
+           
+      </view>
+       
+    </view>
+  </view>
+</view>

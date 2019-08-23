@@ -1,0 +1,47 @@
+
+<view class="nav-warp">
+  <view class="title">
+  {{banner[bannerId].title}}
+  </view>
+  <view class="subTitle">
+  {{banner[bannerId].subtitle}}
+  </view>
+</view>
+<view class="part-warp">
+  <swiper 
+    autoplay="{{autoplay}}" circular 
+    previous-margin="-10px" next-margin="-10px"
+    bindanimationfinish="bannerChange"
+    easing-function="easeOutCubic" interval="{{interval}}" duration="{{duration}}">
+    <block wx:for="{{banner}}" wx:key>
+      <swiper-item class='box'>
+        <view class="banner-warp flex-col">
+          <image src="{{item.image}}" class="banner-image" />
+          <view class="flex subscript">
+            <image class="icon" src="/images/sold.png"></image> 
+            已有 {{item.sold}} 人订阅
+          </view>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+
+</view>
+<view class="container">
+  <view class="title text-left session">
+  热门TOP10
+  </view>
+</view>
+<view class="container flex">
+  <view wx:for="{{top}}" wx:key class="item-5 item">
+    <view class="badge {{index%2 ? 'pull-right':'pull-left'}}">{{index+1}}</view>
+    <view class="pic">
+      <image mode="widthFix" src="{{item.image}}"></image>
+      <view class="describe">{{item.title}}</view>
+      <view class="text-sm">
+        <image src="/images/fire.png" class="icon"></image>
+        <text>{{item.sold}} 订阅</text>
+      </view>
+    </view>
+  </view>
+</view>
