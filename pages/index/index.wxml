@@ -15,7 +15,7 @@
     easing-function="easeOutCubic" interval="{{interval}}" duration="{{duration}}">
     <block wx:for="{{banner}}" wx:key>
       <swiper-item class='box'>
-        <view class="banner-warp flex-col">
+        <view class="banner-warp flex-col" bindtap="goMgz">
           <image src="{{item.image}}" class="banner-image" />
           <view class="flex subscript">
             <image class="icon" src="/images/sold.png"></image> 

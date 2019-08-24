@@ -21,7 +21,7 @@
         <image src="/images/link.png" class="icon"></image>
       </view>
       <view class="flex btn-warp">
-        <view>阅读</view>
+        <view bindtap="goDetail">阅读</view>
         |
         <view>订阅</view>
       </view>

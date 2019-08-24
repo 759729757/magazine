@@ -65,8 +65,8 @@
 				},
 				{
 					"id": 2,
-					"name": "pages/magazine/detail",
-					"pathName": "pages/magazine/detail",
+					"name": "pages/magazine/magazine",
+					"pathName": "pages/magazine/magazine",
 					"query": "",
 					"scene": null
 				}
