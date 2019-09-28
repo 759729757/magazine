@@ -35,3 +35,37 @@
   <view class="a-line title">{{data.title}}</view>
   <view class="content">{{data.describe}}</view>
 </view>
+
+<!-- 阅读吗弹框 -->
+<view class='cover' wx:if="{{readCord}}">
+  <view class="fixed-btm bg-white session">
+    <view class="a-line text-left title">请输入阅读吗兑换期刊</view>
+    <view class='content'>
+      使用阅读码成功兑换期刊后，可免费阅读期刊。已兑换过的期刊无法再次兑换，可将阅读码分享给其他好友。
+    </view>
+    <input class='input' type='number' placeholder='输入阅读码'></input>
+    <view class='btn2-warp'>
+      <view class='btn-cencel'>取消</view>
+      <view class='btn-red'>确定</view>
+    </view>
+  </view>
+</view>
+<!-- 订阅弹框 -->
+<view class='cover' wx:if="{{ purchase}}">
+  <view class="fixed-btm bg-white session">
+     <view class="a-line text-left title">{{data.title}}</view>
+      <view class="content">点此查看购买说明</view>
+      <view>
+         <radio-group class="radio-group" bindchange="radioChange">
+                <radio class="radio" wx:for-items="{{setMeal}}" wx:key="name" value="{{item.number}}" checked="{{item.checked}}">
+                    <view>{{item.number}}
+                     <text class='pull-right'>￥{{item.price}}</text>
+                     </view>
+                   
+                </radio>
+            </radio-group>
+      </view>
+  </view>
+</view>
+
+

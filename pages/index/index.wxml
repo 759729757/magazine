@@ -1,4 +1,3 @@
-
 <view class="nav-warp">
   <view class="title">
   {{banner[bannerId].title}}

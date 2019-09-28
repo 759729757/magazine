@@ -6,7 +6,7 @@
     <block wx:for="{{data.magazine}}" wx:key>
       <swiper-item class='box'>
         <view class="banner-warp flex-col">
-          <image src="{{item}}" mode="aspectFit" class="banner-image" />
+          <image src="{{item}}" mode="aspectFill" class="banner-image" />
         </view>
       </swiper-item>
     </block>

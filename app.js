@@ -9,7 +9,24 @@ App({
     // 登录
     wx.login({
       success: res => {
+        console.log('login',res);
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
+      }
+    })
+
+
+    // 可以通过 wx.getSetting 先查询一下用户是否授权了 "scope.record" 这个 scope
+    wx.getSetting({
+      success(res) {
+        if (!res.authSetting['scope.werun']) {
+          wx.authorize({
+            scope: 'scope.werun',
+            success() {
+              // 用户已经同意小程序使用功能，后续调用 wx.getUserInfo 接口不会弹窗询问
+              wx.getUserInfo()
+            }
+          })
+        }
       }
     })
     // 获取用户信息
@@ -20,6 +37,7 @@ App({
           wx.getUserInfo({
             success: res => {
               // 可以将 res 发送给后台解码出 unionId
+              console.log('getUserInfo',res);
               this.globalData.userInfo = res.userInfo
 
               // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
@@ -34,6 +52,7 @@ App({
     })
   },
   globalData: {
+    ajaxUrl:'',
     userInfo: null
   }
 })

@@ -7,11 +7,6 @@ Page({
   data: {
     banner: [], bannerId:0,
     top:[],
-    imgUrls: [
-      'https://images.unsplash.com/photo-1551334787-21e6bd3ab135?w=640',
-      'https://images.unsplash.com/photo-1551214012-84f95e060dee?w=640',
-      'https://images.unsplash.com/photo-1551446591-142875a901a1?w=640'
-    ],
     autoplay: false,
     interval: 5000,
     duration: 1000
@@ -28,6 +23,20 @@ Page({
     wx.setNavigationBarTitle({
       title: '时尚芭莎电子期刊',
     })
+// 获取数据
+  wx.request({
+    method:'get',
+    url: app.globalData.ajaxUrl+'/getBanner',
+    success:function(data){
+      
+    },
+    error:function(err){
+      console.log(err);
+    }
+
+  })
+
+
     // 设置测试数据
     this.setData({
       banner: testData.banner,

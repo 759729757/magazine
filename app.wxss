@@ -40,6 +40,9 @@ image{max-width: 100%;}
 }
 .hr{margin: 20rpx 0;border-top: 1px #eee solid;box-shadow: 0 0 5px 0 #eee;}
 .shadow{box-shadow: 0 0 10rpx 0 #ccc;border-radius: 4rpx;}
+.bg-white{background: white;}
+
+
 
 /* 图标 */
 .icon{

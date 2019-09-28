@@ -6,15 +6,21 @@ Page({
    * 页面的初始数据
    */
   data: {
-    banner:[]
-
+    banner: [], readCord: false, purchase:true
+    , setMeal: [
+      { number: '1本', price: '6.00', checked: 'true' },
+      { number: '10本', price: '60.00' },
+      { number: '100本', price: '58.00' },
+    ]
   },
   goDetail:function(){
     wx.navigateTo({
       url: 'detail',
     })
   },
-
+  radioChange: function (e) {
+    console.log('radio发生change事件，携带value值为：', e.detail.value)
+  },
   /**
    * 生命周期函数--监听页面加载
    */
