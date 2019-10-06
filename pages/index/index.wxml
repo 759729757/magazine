@@ -14,8 +14,8 @@
     easing-function="easeOutCubic" interval="{{interval}}" duration="{{duration}}">
     <block wx:for="{{banner}}" wx:key>
       <swiper-item class='box'>
-        <view class="banner-warp flex-col" bindtap="goMgz">
-          <image src="{{item.image}}" class="banner-image" />
+        <view class="banner-warp flex-col" data-bookid="{{ item._id }}" bindtap="goMgz">
+          <image src="{{ imgUrl+item.magazineNum+'/'+item.subHeadImg[0] }}" class="banner-image" />
           <view class="flex subscript">
             <image class="icon" src="/images/sold.png"></image> 
             已有 {{item.sold}} 人订阅
@@ -32,11 +32,11 @@
   </view>
 </view>
 <view class="container flex">
-  <view wx:for="{{top}}" wx:key class="item-5 item">
+  <view wx:for="{{top}}" wx:key class="item-5 item" data-bookid="{{ item._id }}" bindtap="goMgz" >
     <view class="badge {{index%2 ? 'pull-right':'pull-left'}}">{{index+1}}</view>
     <view class="pic">
-      <image mode="widthFix" src="{{item.image}}"></image>
-      <view class="describe">{{item.title}}</view>
+      <image mode="widthFix" src="{{ imgUrl+item.magazineNum+'/'+item.subHeadImg[0] }}"></image>
+      <view class="describe">{{item.name}}</view>
       <view class="text-sm">
         <image src="/images/fire.png" class="icon"></image>
         <text>{{item.sold}} 订阅</text>

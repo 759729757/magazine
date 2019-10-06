@@ -11,9 +11,11 @@ Page({
     interval: 5000,
     duration: 1000
   },
-  goMgz:function(){
+  goMgz:function(e){
+    console.log(e)
+    var id = e.currentTarget.dataset.bookid;
     wx.navigateTo({
-      url: '/pages/magazine/magazine',
+      url: '/pages/magazine/magazine?id='+id,
     })
   },
   /**
@@ -24,23 +26,46 @@ Page({
       title: '时尚芭莎电子期刊',
     })
 // 获取数据
-  wx.request({
-    method:'get',
-    url: app.globalData.ajaxUrl+'/getBanner',
-    success:function(data){
-      
-    },
-    error:function(err){
-      console.log(err);
-    }
+    var self = this;
+    wx.request({
+      method:'get',
+      url: app.globalData.ajaxUrl +'/getBanner',
+      success:function(data){
+        console.log(data);
+        self.setData({
+          banner: data.data.data,
+        });
+      },
+      error:function(err){
+        console.log(err);
+      }
+    })
+    wx.showLoading({
+      title: '读取中',
+    })
+// 拿热门top10 数据
+    wx.request({
+      method: 'get',
+      url: app.globalData.ajaxUrl + '/getTop',
+      success: function (data) {
+        console.log(data);
+        self.setData({
+          top: data.data.data,
+        });
+        wx.hideLoading();
+      },
+      error: function (err) {
+        console.log(err);
+      }
+    })
 
-  })
 
 
     // 设置测试数据
     this.setData({
       banner: testData.banner,
-      top: testData.top10
+      top: testData.top10,
+      imgUrl: app.globalData.imgUrl
     });
   },
   bannerChange:function(e){

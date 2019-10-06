@@ -40,6 +40,7 @@ box-shadow: 0 0 5px 0 #999;
   font-size: 14px;padding: 10rpx;box-sizing: border-box;
 }
 .item{margin: 20rpx 0;}
+.flex{align-items:stretch;}
 
 
 

@@ -1,13 +1,13 @@
 <!--pages/magazine/magazine.wxml-->
 <view class="full warp">
   <swiper 
-    autoplay="{{autoplay}}" circular
+    autoplay="{{autoplay}}" circular 
     bindanimationfinish="bannerChange"
     >
-    <block wx:for="{{data.banner}}" wx:key>
+    <block wx:for="{{data.subHeadImg}}" wx:key>
       <swiper-item class='box'>
         <view class="banner-warp flex-col">
-          <image src="{{item}}" mode="widthFix" class="banner-image" />
+          <image src="{{imgUrl+data.magazineNum+'/'+item}}" mode="{{imgType}}" class="banner-image" />
         </view>
       </swiper-item>
     </block>
@@ -23,7 +23,7 @@
       <view class="flex btn-warp">
         <view bindtap="goDetail">阅读</view>
         |
-        <view>订阅</view>
+        <view bindtap='subscribe'>订阅</view>
       </view>
       <view class="icon-warp">
        <image src="/images/down.png" class="icon"></image>
@@ -32,7 +32,7 @@
   </view>
 </view>
 <view class="container session">
-  <view class="a-line title">{{data.title}}</view>
+  <view class="a-line title">{{data.name}}</view>
   <view class="content">{{data.describe}}</view>
 </view>
 
@@ -43,10 +43,10 @@
     <view class='content'>
       使用阅读码成功兑换期刊后，可免费阅读期刊。已兑换过的期刊无法再次兑换，可将阅读码分享给其他好友。
     </view>
-    <input class='input' type='number' placeholder='输入阅读码'></input>
+    <input class='input' type='number' bindinput="bindKeyInput" placeholder='输入阅读码'></input>
     <view class='btn2-warp'>
-      <view class='btn-cencel'>取消</view>
-      <view class='btn-red'>确定</view>
+      <view class='btn btn-cencel' bindtap='cancelReadCord'>取消</view>
+      <view class='btn btn-red' bindtap='readByCord'>确定</view>
     </view>
   </view>
 </view>
@@ -57,14 +57,18 @@
       <view class="content">点此查看购买说明</view>
       <view>
          <radio-group class="radio-group" bindchange="radioChange">
-                <radio class="radio" wx:for-items="{{setMeal}}" wx:key="name" value="{{item.number}}" checked="{{item.checked}}">
-                    <view>{{item.number}}
-                     <text class='pull-right'>￥{{item.price}}</text>
-                     </view>
-                   
+                <radio class="radio" wx:for-items="{{setMeal}}" wx:key="name"  value="{{index}}" checked="{{item.checked}}">
+                    <view>
+                      {{item.number}}本
+                      <text class='abs-right'>￥{{item.price}}</text>
+                    </view>
                 </radio>
             </radio-group>
       </view>
+      <view class='btn2-warp'>
+        <view class='btn btn-cencel' bindtap='cancelPurchase'>取消</view>
+        <view class='btn btn-red' bindtap='purchaseMgz'>确认支付</view>
+    </view>
   </view>
 </view>
 

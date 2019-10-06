@@ -5,14 +5,14 @@
 <view class="hr"></view>
 <view class="session flex-left">
   <view class="tab {{index==tabIndex ? 'active':''}}" 
-  bindtap="chooseTab" data-index="{{index}}"
+  bindtap="chooseTab" data-index="{{index}}" 
   wx:for='{{tab}}' wx:key>{{item.name}}</view>
 </view>
-<view class="flex content">
-   <view wx:for='{{data}}' wx:key class="item-5">
+<view class="flex content" wx:if="data">
+   <view wx:for='{{data}}' wx:key class="item-5" data-bookid="{{ item._id }}" bindtap="goMgz" >
     <view class="shadow">
-      <image class="pic" mode="widthFix" src="{{item.image}}"></image>
-      <view class="describe">{{item.title}}</view>
+      <image class="pic" mode="widthFix" src="{{ imgUrl+item.magazineNum+'/'+item.subHeadImg[0] }}"></image>
+      <view class="describe">{{item.name}}</view>
       <view class="text-sm">
         <text>{{item.sold}} 订阅</text>
       </view>

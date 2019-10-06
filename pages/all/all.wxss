@@ -2,14 +2,15 @@
 .session{padding-left: 30rpx;padding-right: 30rpx;}
 .tab{background: #f4f7fc;font-size: 14px;padding: 15rpx 25rpx;margin-right: 30rpx;margin-bottom: 20rpx;border-radius: 2em;}
 .tab.active{color: #d81e06;}
-.flex{align-items: stretch;}
+.flex{align-items: stretch;justify-content: left;}
 .item-5{padding: 30rpx;box-sizing: border-box;padding-top: 0;}
 .item-5:nth-child(2n+1){padding-right: 15rpx;}
 .item-5:nth-child(2n+2){padding-left: 15rpx;}
-.item-5 .shadow{padding-bottom: 40rpx;height: 100%;box-sizing: border-box;}
+.item-5 .shadow{padding-bottom: 20rpx;height: 100%;box-sizing: border-box;}
 .text-sm{padding: 10rpx;box-sizing: border-box;}
 .describe{
-  font-size: 14px;padding: 10rpx;box-sizing: border-box;min-height: 3.4em;
+  font-size: 14px;padding: 10rpx;box-sizing: border-box;
+  /* min-height: 3.4em; */
 }
 
 

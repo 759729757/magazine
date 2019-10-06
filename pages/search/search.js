@@ -1,4 +1,6 @@
 // pages/search/search.js
+const app = getApp();
+
 Page({
 
   /**
@@ -6,13 +8,32 @@ Page({
    */
   data: {
 
+  },  
+  search:function(e){
+    var self= this;
+    var name = e.detail.value;
+    wx.request({
+      method: 'get',
+      // data: { name: { '$$regex': name } },
+      data: { name:  name  },
+      url: app.globalData.ajaxUrl + '/getMagazine',
+      success: function (data) {
+        console.log('search:',data);
+        self.setData({
+          data: data.data.data,
+          imgUrl: app.globalData.imgUrl
+        });
+      },
+      error: function (err) {
+        console.log(err);
+      }
+    })
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
   },
 
   /**

@@ -9,8 +9,28 @@ App({
     // 登录
     wx.login({
       success: res => {
-        console.log('login',res);
+        // console.log('login',res);
         // 发送 res.code 到后台换取 openId, sessionKey, unionId
+        var self = this;
+        wx.request({
+          method: 'post',
+          data: { openId: 'asdf' },//open 测试用
+          url: self.globalData.ajaxUrl + '/login',
+          success: function (data) {
+            console.log('login:', data);
+            if(data.data.status == 1){
+              let token = data.data.token;
+              self.globalData.token = token; //保存token
+
+            }else{
+              // 登陆失败 
+
+            }
+          },
+          error: function (err) {
+            console.log(err);
+          }
+        })
       }
     })
 
@@ -52,7 +72,9 @@ App({
     })
   },
   globalData: {
-    ajaxUrl:'',
-    userInfo: null
+    ajaxUrl:'http://www.cy2017.cn/',
+    token:'',
+    userInfo: null,
+    imgUrl:'http://www.cy2017.cn/images/magazines/'
   }
 })
