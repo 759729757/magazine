@@ -1,9 +1,9 @@
 <view class="nav-warp">
   <view class="title">
-  {{banner[bannerId].title}}
+  {{banner[bannerId].name}}
   </view>
   <view class="subTitle">
-  {{banner[bannerId].subtitle}}
+  {{banner[bannerId].subTitle}}
   </view>
 </view>
 <view class="part-warp">

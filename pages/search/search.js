@@ -9,6 +9,13 @@ Page({
   data: {
 
   },  
+  goMgz: function (e) {
+    console.log(e)
+    var id = e.currentTarget.dataset.bookid;
+    wx.navigateTo({
+      url: '/pages/magazine/magazine?id=' + id,
+    })
+  },
   search:function(e){
     var self= this;
     var name = e.detail.value;

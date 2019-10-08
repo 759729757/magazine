@@ -75,6 +75,7 @@ Page({
       url: app.globalData.ajaxUrl + '/readMgz',
       data: { 
         magazine:  self.data.magazineId ,
+        mgzName: self.data.data.name
         },
       success: function (data) {
         console.log(data);

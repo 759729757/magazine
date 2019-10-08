@@ -4,9 +4,9 @@
     <text class="text-sm">客户服务</text>
   </view>
   <view class="item-3 flex-col">
-    <image src="https://img7.iqiyipic.com/passport/20190717/a4/f4/passport_1625790851_156336696712239_130_130.jpg" 
+    <image src="{{user.headImg}}" 
     class="headImg"></image>
-    <text class="text-lg">西外</text>
+    <text class="text-lg">{{user.nickName}}</text>
   </view>
   <view class="item-3 flex-col">
     <image src="/images/vip.png" class="icon"></image>
@@ -25,10 +25,10 @@
 
 <view wx:if="{{tabIndex==0}}">
   <view class="flex-left content">
-    <view wx:for='{{tab1}}' wx:key class="item-5">
+    <view wx:for='{{tab1}}' wx:key class="item-5" data-bookid="{{ item.magazine._id }}" bindtap="goMgz">
       <view class="shadow">
-        <image class="pic" mode="widthFix" src="{{item.image}}"></image>
-        <view class="describe">{{item.title}}</view>
+        <image class="pic" mode="widthFix" src="{{imgUrl+item.magazine.magazineNum+'/'+ item.magazine.subHeadImg[0] }}"></image>
+        <view class="describe">{{item.magazine.name}}</view>
     
       </view>
     </view>
@@ -38,15 +38,15 @@
 <view wx:if="{{tabIndex==1}}">
   <view class="flex-left content">
     <view wx:for='{{tab2}}' wx:key class="media">
-      <image class="pic2" mode="widthFix" src="{{item.image}}"></image>
+      <image class="pic2" mode="widthFix" src="{{imgUrl+item.magazine.magazineNum+'/'+ item.magazine.subHeadImg[0]}}"></image>
       <view class="flex-col">
+          <text class="title ">{{item.magazine.name}}</text>
         <view>
-          <text class="title a-line">{{item.title}}</text>
-          <view class="describe">{{item.describe}}</view>   
+          <view class="describe">可使用：{{item.tradeCount}}已使用：{{item.readCodeUsed}}</view>   
         </view>
         <view class="flex-icon read-code">
-          <text>我的阅读码</text>
-          <image src="/images/next.png" class="icon"></image>
+          <text>阅读码：{{item.readCode}}</text>
+          <!-- <image src="/images/next.png" class="icon"></image> -->
         </view>
            
       </view>

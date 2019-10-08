@@ -1,5 +1,6 @@
 // pages/mine/mine.js
 var testData = require('data.js');//拿测试数据
+const app = getApp();
 Page({
 
   /**
@@ -14,8 +15,61 @@ Page({
    */
   onLoad: function (options) {
 
+    wx.showLoading({
+      title: '加载中',
+    })
+    const self = this;
+    wx.request({
+      method: 'get',
+      url: app.globalData.ajaxUrl + '/userInfo',
+      header: { 'Authorization': app.globalData.token },
+      success: function (data) {
+        console.log('userInfo', data);
+        self.setData({
+          user: data.data.user
+        })
+        wx.hideLoading();
+      },
+      error: function (err) {
+        console.log(err);
+      }
+    })
+    wx.request({
+      method: 'get',
+      url: app.globalData.ajaxUrl + '/userBuy',
+      header: { 'Authorization': app.globalData.token },
+      success: function (data) {
+        console.log('userBuy', data);
+        self.setData({
+          tab1: data.data.data
+        })
+      },
+      error: function (err) {
+        console.log(err);
+      }
+    })
+    wx.request({
+      method: 'get',
+      url: app.globalData.ajaxUrl + '/userRecord',
+      header: { 'Authorization': app.globalData.token },
+      success: function (data) {
+        console.log('userRecord', data);
+        self.setData({
+          tab2: data.data.data
+        })
+      },
+      error: function (err) {
+        console.log(err);
+      }
+    })
   },
-
+  goMgz: function (e) {
+    console.log(e)
+    var id = e.currentTarget.dataset.bookid;
+    wx.navigateTo({
+      url: '/pages/magazine/magazine?id=' + id,
+    })
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
@@ -31,9 +85,10 @@ Page({
       title: '个人中心',
     })
     this.setData({
-      tab1: testData.data,
-      tab2: testData.data2
+      imgUrl: app.globalData.imgUrl
     })
+
+
   },
 
   /**

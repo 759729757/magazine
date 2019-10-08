@@ -4,7 +4,7 @@
 </view>
 
 <view class="flex content" wx:if="data">
-   <view wx:for='{{data}}' wx:key class="item-5">
+   <view wx:for='{{data}}' wx:key class="item-5"  data-bookid="{{ item._id }}" bindtap="goMgz">
     <view class="shadow">
       <image class="pic" mode="widthFix" src="{{ imgUrl+item.magazineNum+'/'+item.subHeadImg[0] }}"></image>
       <view class="describe">{{item.name}}</view>

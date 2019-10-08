@@ -21,11 +21,11 @@
 .item-5:nth-child(2n+2){padding-left: 15rpx;}
 .item-5 .shadow{padding-bottom: 30rpx;height: 100%;box-sizing: border-box;}
 /* tab2 */
-.media{display: flex;justify-content: start;padding: 0 30rpx;box-sizing: border-box;align-items:stretch ;}
+.media{display: flex;justify-content: start;padding: 0 30rpx;margin-bottom: 30rpx;box-sizing: border-box;align-items:stretch ;}
 .media .flex-col>view{max-width: 100%;}
 .pic2{width: 240rpx;flex-shrink: 0;margin-right: 30rpx;}
 .a-line{width: calc(700rpx - 270rpx);display: inline-block;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
-.media .title{font-size: 16px;}
+.media .title{font-size: 16px;text-align: left;}
 .media .describe{color: #999;font-size: 13px;
  -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
