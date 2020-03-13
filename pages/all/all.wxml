@@ -2,12 +2,21 @@
   <image class="icon" src="/images/search.png"></image>
   <text class="input">搜索您感兴趣的电子刊</text>
 </view>
+
 <view class="hr"></view>
 <view class="session flex-left">
+  
+  <view class="tab {{tabIndex=='-1' ? 'active':''}}"
+  bindtap="chooseTab" data-index="-1" 
+  >
+    全部
+  </view>
+
   <view class="tab {{index==tabIndex ? 'active':''}}" 
   bindtap="chooseTab" data-index="{{index}}" 
-  wx:for='{{tab}}' wx:key>{{item.name}}</view>
+  wx:for='{{tab}}' wx:key='key'>{{item.name}}</view>
 </view>
+
 <view class="flex content" wx:if="data">
    <view wx:for='{{data}}' wx:key class="item-5" data-bookid="{{ item._id }}" bindtap="goMgz" >
     <view class="shadow">

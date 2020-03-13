@@ -11,6 +11,8 @@
 image{max-width: 100%;}
 /* 布局 */
 .flex{display: flex;justify-content: center;align-items: center;flex-wrap: wrap;}
+.flex-between{justify-content: space-between;}
+.flex-around{justify-content: space-around;}
 .flex-left{display: flex;justify-content: start;flex-wrap: wrap;}
 .flex-col{display: flex;flex-direction: column;justify-content: center;align-items: center;}
 .content{margin: 10rpx 0;font-size: 14px;}
@@ -18,6 +20,9 @@ image{max-width: 100%;}
 .pull-left{float: left;}.pull-right{float: right;}
 .item-5{width: 50%;}
 .item-3{width: 33.333%;}
+.media{vertical-align: middle;margin-bottom: 10px;}
+.flex.media{align-items: center;}
+.media .describe{color: #666;}
 
 /* 共用 */
 .subTitle,.title{text-align: center;}
@@ -26,8 +31,10 @@ image{max-width: 100%;}
 .text-sm{font-size: 11px;color: #999;}
 .text-lg{font-size: 18px;}
 .text-white{color: white;}
+.text-opacity{color:rgba(255,255,255,.6);}
+.text-gray{color: #666;}
 .a-line{width: 100%;white-space: nowrap;overflow: hidden;text-overflow: ellipsis;}
-.font-bold{font-weight: bold;}
+.font-bold,.text-strong{font-weight: bold;}
 .input-search{
   padding: 20rpx 40rpx;box-sizing: border-box;
   font-size: 12px;align-items: center;color: #bbb;

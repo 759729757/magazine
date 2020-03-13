@@ -1,5 +1,4 @@
 // pages/mine/mine.js
-var testData = require('data.js');//拿测试数据
 const app = getApp();
 Page({
 
@@ -15,6 +14,37 @@ Page({
    */
   onLoad: function (options) {
 
+  
+  },
+  goMgz: function (e) {
+    console.log(e)
+    var id = e.currentTarget.dataset.bookid;
+    wx.navigateTo({
+      url: '/pages/magazine/magazine?id=' + id,
+    })
+  },
+  /**
+   * 生命周期函数--监听页面初次渲染完成
+   */
+  onReady: function () {
+
+  },
+
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    // 设置初始数据
+    this.setData({
+      imgUrl: app.globalData.imgUrl
+    });
+
+    wx.setNavigationBarTitle({
+      title: '个人中心',
+    })
+    this.setData({
+      imgUrl: app.globalData.imgUrl
+    })
     wx.showLoading({
       title: '加载中',
     })
@@ -62,32 +92,6 @@ Page({
         console.log(err);
       }
     })
-  },
-  goMgz: function (e) {
-    console.log(e)
-    var id = e.currentTarget.dataset.bookid;
-    wx.navigateTo({
-      url: '/pages/magazine/magazine?id=' + id,
-    })
-  },
-  /**
-   * 生命周期函数--监听页面初次渲染完成
-   */
-  onReady: function () {
-
-  },
-
-  /**
-   * 生命周期函数--监听页面显示
-   */
-  onShow: function () {
-    wx.setNavigationBarTitle({
-      title: '个人中心',
-    })
-    this.setData({
-      imgUrl: app.globalData.imgUrl
-    })
-
 
   },
 

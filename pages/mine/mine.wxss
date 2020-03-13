@@ -14,12 +14,12 @@
 .tab-warp .active{color: #d81e06;position: relative;}
 .tab-warp .active::after{transform: scaleX(1);}
 .item-5 .describe{
-  font-size: 14px;padding: 10rpx;box-sizing: border-box;min-height: 3.4em;
+  font-size: 14px;padding: 10rpx;box-sizing: border-box;
 }
 .item-5{padding: 30rpx;box-sizing: border-box;padding-top: 0;}
 .item-5:nth-child(2n+1){padding-right: 15rpx;}
 .item-5:nth-child(2n+2){padding-left: 15rpx;}
-.item-5 .shadow{padding-bottom: 30rpx;height: 100%;box-sizing: border-box;}
+.item-5 .shadow{padding-bottom: 10rpx;height: 100%;box-sizing: border-box;}
 /* tab2 */
 .media{display: flex;justify-content: start;padding: 0 30rpx;margin-bottom: 30rpx;box-sizing: border-box;align-items:stretch ;}
 .media .flex-col>view{max-width: 100%;}

@@ -25,7 +25,7 @@
 
 <view wx:if="{{tabIndex==0}}">
   <view class="flex-left content">
-    <view wx:for='{{tab1}}' wx:key class="item-5" data-bookid="{{ item.magazine._id }}" bindtap="goMgz">
+    <view wx:for='{{tab1}}' wx:key='key' class="item-5" data-bookid="{{ item.magazine._id }}" bindtap="goMgz">
       <view class="shadow">
         <image class="pic" mode="widthFix" src="{{imgUrl+item.magazine.magazineNum+'/'+ item.magazine.subHeadImg[0] }}"></image>
         <view class="describe">{{item.magazine.name}}</view>
@@ -37,7 +37,7 @@
 
 <view wx:if="{{tabIndex==1}}">
   <view class="flex-left content">
-    <view wx:for='{{tab2}}' wx:key class="media">
+    <view wx:for='{{tab2}}' wx:key='key' class="media">
       <image class="pic2" mode="widthFix" src="{{imgUrl+item.magazine.magazineNum+'/'+ item.magazine.subHeadImg[0]}}"></image>
       <view class="flex-col">
           <text class="title ">{{item.magazine.name}}</text>

@@ -1,5 +1,4 @@
 // pages/magazine/magazine.js
-var testData = require('data.js');//拿测试数据
 const app = getApp()
 
 Page({
@@ -15,7 +14,8 @@ Page({
       { number: '1', price: '6.00', checked: 'true' },
       { number: '10', price: '60.00' },
       { number: '100', price: '588.00' },
-    ]
+    ],
+    rankingList:[],//购买排行版
   },
   subscribe:function(){
     this.setData({
@@ -47,7 +47,7 @@ Page({
         if (data.data.status == 1) {
           // 已经买过了
           wx.navigateTo({
-            url: 'detail?id=' + self.data.magazineId,
+            url: 'detail?id=' + self.data.magazineId+ '&readCode='+readCode,
           })
         } else {
           // 弹出阅读码弹框
@@ -62,6 +62,27 @@ Page({
       }
     })
 
+  },
+  // 获取购买排行版
+  fetchRankingList:function(){
+    const self =this;
+    wx.request({
+      url: app.globalData.ajaxUrl + '/rankingList',
+      header: { 'Authorization': app.globalData.token },
+      data: {
+        magazine: self.data.magazineId,
+      },
+      success:function(data){
+        console.log('rankingList:',data);
+        if (data.data.status == 1) {
+          // 获取成功
+          self.setData({
+            rankingList: data.data.data
+          });
+
+        }
+      }
+    })
   },
   goDetail:function(){
     wx.showLoading({
@@ -147,6 +168,7 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
+    var self = this;
     wx.showLoading({
       title: '读取中'
     })
@@ -155,9 +177,12 @@ Page({
       wx.navigateBack({
         delta: 1
       })
+    }else{
+      self.setData({
+        magazineId: id
+      });
     }
     // 获取数据
-    var self = this;
     wx.request({
       method: 'get',
       url: app.globalData.ajaxUrl + '/getMagazine',
@@ -174,14 +199,17 @@ Page({
         self.setData({
           data: magazine,
           imgUrl: app.globalData.imgUrl,
-          magazineId:id
         });
         wx.hideLoading();
       },
       error: function (err) {
         console.log(err);
       }
-    })
+    });
+
+// 读取排行榜
+    this.fetchRankingList();
+
   },
 
   /**
@@ -195,11 +223,6 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    // // 设置测试数据
-    // this.setData({
-    //   data: testData
-    // });
-    
     // 设置屏幕图片参数
     var self = this;
     wx.getSystemInfo({

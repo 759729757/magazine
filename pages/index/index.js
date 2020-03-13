@@ -23,7 +23,7 @@ Page({
   */
   onShow: function () {
     wx.setNavigationBarTitle({
-      title: '时尚芭莎电子期刊',
+      title: 'Planet电子刊',
     })
 // 获取数据
     var self = this;
@@ -31,7 +31,7 @@ Page({
       method:'get',
       url: app.globalData.ajaxUrl +'/getBanner',
       success:function(data){
-        console.log(data);
+        console.log('getBanner',data);
         self.setData({
           banner: data.data.data,
         });
@@ -48,7 +48,7 @@ Page({
       method: 'get',
       url: app.globalData.ajaxUrl + '/getTop',
       success: function (data) {
-        console.log(data);
+        console.log('getTop',data);
         self.setData({
           top: data.data.data,
         });
@@ -61,10 +61,8 @@ Page({
 
 
 
-    // 设置测试数据
+    // 设置初始数据
     this.setData({
-      banner: testData.banner,
-      top: testData.top10,
       imgUrl: app.globalData.imgUrl
     });
   },

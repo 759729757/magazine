@@ -9,7 +9,7 @@
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
-		"autoAudits": false,
+		"autoAudits": true,
 		"checkInvalidKey": true,
 		"checkSiteMap": true,
 		"uploadWithSourceMap": true,
@@ -20,7 +20,7 @@
 		}
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.8.0",
+	"libVersion": "2.10.2",
 	"appid": "wxefaaeea96e92322c",
 	"projectname": "magazine",
 	"debugOptions": {
@@ -46,6 +46,10 @@
 			"currentL": -1,
 			"list": []
 		},
+		"gamePlugin": {
+			"current": -1,
+			"list": []
+		},
 		"miniprogram": {
 			"current": 4,
 			"list": [
@@ -67,20 +71,21 @@
 					"id": 2,
 					"name": "pages/magazine/magazine",
 					"pathName": "pages/magazine/magazine",
-					"query": "",
+					"query": "id=5e3da221645e6782ecf15307",
 					"scene": null
 				},
 				{
 					"id": 3,
-					"name": "pages/magazine/magazine",
+					"name": "pages/magazine/detail",
 					"pathName": "pages/magazine/detail",
-					"query": "id=5d94bbe1dbd90d0874dc5559",
+					"query": "id=5e65f9f684424d053c287974",
 					"scene": null
 				},
 				{
 					"id": -1,
 					"name": "pages/mine/mine",
 					"pathName": "pages/mine/mine",
+					"query": "",
 					"scene": null
 				}
 			]

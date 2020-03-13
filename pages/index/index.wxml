@@ -12,7 +12,7 @@
     previous-margin="-10px" next-margin="-10px"
     bindanimationfinish="bannerChange"
     easing-function="easeOutCubic" interval="{{interval}}" duration="{{duration}}">
-    <block wx:for="{{banner}}" wx:key>
+    <block wx:for="{{banner}}" wx:key="key">
       <swiper-item class='box'>
         <view class="banner-warp flex-col" data-bookid="{{ item._id }}" bindtap="goMgz">
           <image src="{{ imgUrl+item.magazineNum+'/'+item.subHeadImg[0] }}" class="banner-image" />
@@ -32,7 +32,7 @@
   </view>
 </view>
 <view class="container flex">
-  <view wx:for="{{top}}" wx:key class="item-5 item" data-bookid="{{ item._id }}" bindtap="goMgz" >
+  <view wx:for="{{top}}" wx:key="key" class="item-5 item" data-bookid="{{ item._id }}" bindtap="goMgz" >
     <view class="badge {{index%2 ? 'pull-right':'pull-left'}}">{{index+1}}</view>
     <view class="pic">
       <image mode="widthFix" src="{{ imgUrl+item.magazineNum+'/'+item.subHeadImg[0] }}"></image>

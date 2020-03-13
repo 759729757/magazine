@@ -7,7 +7,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tab:[],tabIndex:0,
+    tab:[],tabIndex:-1,
     data:[]
   },
 
@@ -30,13 +30,12 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    // 设置初始数据
+    this.setData({
+      imgUrl: app.globalData.imgUrl
+    });
     wx.setNavigationBarTitle({
       title: '全部期刊',
-    })
-    this.setData({
-      tab: testData.tab,
-      data:testData.data,
-      imgUrl: app.globalData.imgUrl
     })
     // 拿数据
     wx.showLoading({
@@ -76,17 +75,33 @@ Page({
   // 选择了tab标签
   chooseTab:function(e){
     var i = e.target.dataset.index;
-    var type = '';
-    type = (this.data.tab[i].name);
-    console.log('杂志类型：',type);
     var self = this;
-    getData(type, 1, function (data){
-      console.log('拿杂志数据', data)
-      self.setData({
-        data: data.data.data,
-        tabIndex: i
+    var type = '';
+    if (i == -1) { 
+
+      getData('', 0, function (data) { 
+        //参数是 类型，页数，回调
+        console.log('拿杂志数据', data)
+        self.setData({
+          data: data.data.data,
+          tabIndex: i
+        });
+        wx.hideLoading();
+      })
+
+    }else{
+
+      type = (this.data.tab[i].name);
+      console.log('杂志类型：', type);
+      getData(type, 1, function (data) {
+        console.log('拿杂志数据', data)
+        self.setData({
+          data: data.data.data,
+          tabIndex: i
+        });
       });
-    });
+
+    }
   },
   goSearch:function(){
     wx.navigateTo({
