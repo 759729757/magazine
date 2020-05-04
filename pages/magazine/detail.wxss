@@ -8,6 +8,7 @@ height: 100vh;
 
 .box{background: #000;}
 video{width: 100%;min-height:225px; }
+video.column{min-height: 100vh;min-width: 100vw;width: auto;}
 .videoPlay{position: absolute;width: 50px;height: 50px;
 left:50%;margin-left: -25px;bottom: 50%;margin-top:-25%;z-index: 8;
 }
@@ -24,6 +25,49 @@ animation: viedo-cover .35s 0s 1 ease-in forwards;opacity: 0;}
   100%{opacity: 1;}
 }
 .video{position: absolute;}
+.loading-cover{display: flex;justify-content: center;transition: .6;flex-direction: column;align-items: center;width: 100%;height: 100vh;position: fixed;z-index: 98;background: white;left: 0;top: 0;}
+.loading-cover.hide{animation: hide .55s .2s 1 ease-out forwards;}
+@keyframes hide{
+  0%{opacity: 1;}
+  100%{opacity: 0;display: none;z-index: -1;}
+}
+.loading-cover.show{display: flex;}
+.loading-cover image{position: relative;z-index: 99;width: 100px;height: 82rpx;border: none;}
+.relative{position: relative;margin-top: -10vh;}
+.loading-bg-black{background: #fff;position: absolute;width: 98%;left: 1%;bottom: 0;top: 1%;z-index: 97;}
+.loading-bg-gray{
+  background: #eee;position: absolute;width: 98%;left: 1%;bottom: 10rpx;top: 1%;z-index: 97;transform: scaleY(.8);transform-origin: bottom;}
+.loading-bg-red{background: #000;position: absolute;width: 98%;left: 1%;
+bottom: 10rpx;transition: all .2s;z-index: 98;height: 0;transform: scaleY(.8);
+transform-origin: bottom;}
+.loadImg{margin:0;height: 166rpx;}
 
+.watermark{position: absolute;bottom: 30rpx;left: 30rpx;width: 180rpx;
+  animation: mark 8s 2s infinite ease-out forwards;
+}
+@keyframes mark{
+  0%{opacity: 0;transform: rotate(0);}
+  20%{opacity: 1;transform: rotate(360deg);}
+  100%{opacity: 1;transform: rotate(360deg);}
+
+}
+.image-cover .loadImg{width: 100vw;height: 100vh;position: fixed;left: 0;top: 0;z-index: 97;}
+.image-cover .loadImg{width: 100vw;height: 100vh;position: fixed;left: 0;top: 0;}
+.progressText{color: #fff;z-index: 99;width: 60px;height: 60px;
+vertical-align: middle;
+border: 2px #eee solid;border-radius: 60px;text-align: center;display: inline-block;}
+.img-cover{position: absolute;width: 100vw;height: 100vh;left: 0;top: 0;background-color: rgba(0,0,0,.65);z-index: 98;}
+.autoFull{width:calc(100vw * 1.777777);height: 100vw;transform: rotate(90deg);}
+
+.reload{
+  position: fixed;
+z-index: 99;
+bottom: 50px;
+left: 50%;
+margin-left: -20px;
+}
+.reload-img{
+  width: 40px;height: 40px;
+}
 
 

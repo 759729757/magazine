@@ -1,6 +1,6 @@
 /* pages/magazine/magazine.wxss */
 .banner-image{width: 100%;min-height:100%;}
-.full{height: 100vh;}
+.full{height: 100vh;overflow: hidden;}
 .cover-bg,.full swiper,.banner-warp{width: 100%;height: 100%;}
 .warp{position: relative;}
 .cover-bg{height: auto;position: absolute;left: 0;bottom: 0;background:  linear-gradient(0deg,rgba(100,100,100,.6),rgba(255,255,255,.0));}
@@ -21,7 +21,7 @@
 .cover{position: fixed;top: 0;left: 0;background: rgba(0,0,0,.5);width: 100%;height: 100vh;z-index: 99;}
 .fixed-btm{position: fixed;left: 0;right:0;bottom: 0;padding: 50rpx;}
 .btn2-warp{display: flex;justify-content:space-around;margin-top: 50rpx;}
-.btn2-warp .btn{width: 46%;margin-right: 8%;border-radius: 4px;text-align: center;padding: 10px 0;}
+.btn2-warp .btn{width: 46%;margin-right: 8%;border-radius: 4px;text-align: center;padding: 10px 0;line-height: 1;}
 .btn2-warp .btn:last-child{margin-right: 0;}
 .btn-cencel{background: #e6e6e6;}
 .btn-red{background: #f4343f;color: white;}
@@ -32,3 +32,6 @@
 .headImg{width: 100rpx;height: 100rpx;border-radius: 170rpx;border: 2px white solid;box-shadow: 0 0 20rpx 0 #ccc;margin: 0 1em;}
 .text-barge{font-style: italic;color: #ccc;font-family: sans-serif;}
 
+.preLoad{width: 1px;height: 1px;overflow: hidden;position: fixed;left: -2px;}
+
+.nickName{width: 8em;overflow: hidden;white-space: nowrap;text-overflow:ellipsis;}

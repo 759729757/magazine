@@ -10,12 +10,22 @@ Page({
     tab:[],tabIndex:-1,
     data:[]
   },
-
+  onShareAppMessage: function (res) {
+    if (res.from === 'button'){
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title:'Planetofficial All',
+    }
+  },
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-
+    wx.showShareMenu({
+      withShareTicket: true
+    })
   },
 
   /**
@@ -50,20 +60,20 @@ Page({
       wx.hideLoading();
     })
     // 拿 类型 
-    var self = this;
-    wx.request({
-      method: 'get',
-      url: app.globalData.ajaxUrl + '/getMgzType',
-      success: function (data) {
-        console.log('拿杂志类型', data)
-        self.setData({
-          tab: data.data.data,
-        });
-      },
-      error: function (err) {
-        console.log(err);
-      }
-    })
+    // var self = this;
+    // wx.request({
+    //   method: 'get',
+    //   url: app.globalData.ajaxUrl + '/getMgzType',
+    //   success: function (data) {
+    //     console.log('拿杂志类型', data)
+    //     self.setData({
+    //       tab: data.data.data,
+    //     });
+    //   },
+    //   error: function (err) {
+    //     console.log(err);
+    //   }
+    // })
   },
   goMgz: function (e) {
     console.log(e)

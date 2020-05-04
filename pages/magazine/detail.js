@@ -1,34 +1,127 @@
 // pages/magazine/detail.js
 const app = getApp();
-
+var videoContext ={};
+var interval ={};
 Page({
   /**
    * 页面的初始数据
    */
   data: {
-    current: 0, videoArr: [], showFlag:'',
+    current: 0, videoArr: [], showFlag: '',//显示视频
+    progress: 0,// 加载进度
+    sold:1,//杂志的销售数量
+
+    loadComplete:0,//图片加载完成个数
+    imgProgress: 0,//图片加载进度
+    timeProgress: 0,//加载太慢时主动模拟动画
+
+    loadCompleteRate:82,//加载进度阈值，最高100（为避免加载太慢，不用设置到100）
+
   },
-  // 播放视频
-  showVideo:function(videoId){
+      /// 求百分比
+  GetPercent:function(num, total) {
+    num = parseInt(num);
+      total = parseInt(total);
+      if(isNaN(num) || isNaN(total)) {
+    return "-";
+    }
+    return total <= 0 ? "100" : (Math.round(num / total * 10000) / 100.00);
+    },
+  // 图片加载完成
+  imgLoad:function(event){
+    let num = this.data.loadComplete + 1;
+    let total = (this.data.data.magazine).length
+    // .filter(item=>{item.type == 'image'}).length;
+    let timeProgress = this.data.timeProgress;
+    let progress = this.GetPercent(num,total);
     this.setData({
-      showFlag: this.data.current
-    })
+      loadComplete: num,
+      imgProgress: progress,
+      progress: progress > timeProgress ? progress : timeProgress 
+    });
+    console.log('加载完成', progress);
   },
   // 视频加载完成触发
   videoLoadComplete:function(index){
-    console.log('videoLoadComplete', index.currentTarget.id)
     let arr = this.data.videoArr;
-    arr.push(index.currentTarget.id)
+    arr.push(index.currentTarget.id);
+    this.imgLoad();
     this.setData({
       videoArr: arr
     })
   },
+  // 播放进度变化
+  bindtimeupdate:function(event){
+    console.log('bindtimeupdate:', event);
+    this.setData({
+      videoDuration: Math.ceil(event.detail.currentTime) //记录当前视频的位置
+    })
+  },
+  // 重播视频
+  reLoadVideo:function(){
+    // var current = this.data.current;
+    var duration = this.data.videoDuration+1;
+    // var data = this.data.data.magazine[current];
+    // data.url = data.url + "?start="+1
+    // var up = 'data.magazine[' + current + ']'
+    // this.setData({
+    //   [up]: data
+    // })
+    videoContext.seek(duration);
+    videoContext.play();//播放视频
+  },
+  // 视频播放出错时促发
+  binderror:function(event){
+    // console.log('binderror:',event); 
+    this.reLoadVideo();
+  },
+  // 视频缓冲触发
+  bindwaiting:function(event){
+    console.log('bindwaiting', event)
+    // var current = this.data.current;
+    // var data = this.data.data;
+    // var duration = this.data.videoDuration;
+    // data.magazine[current].url = data.magazine[current].url + "?start=" + duration
+    // // var videoUrl = this.data.data.magazine[current].url;
+
+    // this.setData({
+    //   data: data
+    // })
+  },
   // 绑定swiper滚动
   bindchange: function (current, source){
+    var current = current.detail.current
     this.setData({
-      current: current.detail.current,
-      showFlag:false
+      current: current,
     })
+    let self = this;
+    try{
+      var video = 'video'+current;
+      var videoArr = this.data.videoArr;
+
+      if (videoContext.play)videoContext.pause();//暂停视频
+      if (videoArr.indexOf(video) !== -1){
+        // 滚到视频页了，播放视频
+        videoContext = {};//清空
+        videoContext = wx.createVideoContext(video);
+        if (self.data.data.magazine[current].autoFull ){
+          // 如果设置了全屏播放
+          // console.log(self.data.data.magazine[current]);
+          videoContext.requestFullScreen();
+        }
+        videoContext.play();//播放视频
+      }
+
+      // console.log('type of', typeof (videoContext.pause) );
+      // (typeof videoContext.pause == 'function') && videoContext.pause();
+
+      // videoContext = wx.createVideoContext('video' + current);
+      // console.log('videoContext',videoContext);
+      // (typeof videoContext.play == 'function') && videoContext.play(); 
+
+    }catch(e){
+      console.log('videoContext error', e);
+    }
   },
   /**
    * 生命周期函数--监听页面加载
@@ -40,6 +133,9 @@ Page({
     var data = {
       magazine: id,
     }
+    this.setData({
+      magazineId : id
+    })
     if (readCode) data.readCode = readCode;
 
     // 检查是否购买过，是的话直接阅读，否则弹出输入阅读码弹框
@@ -47,6 +143,7 @@ Page({
       title: '加载中',
     })
     var self = this;
+    data.token = app.globalData.token;
     wx.request({
       method: 'get',
       header: { 'Authorization': app.globalData.token },
@@ -56,13 +153,29 @@ Page({
         console.log('request', data);
         if (data.data.status == 1) {
           // 已经买过了
-          data.data.magazine.magazine = self.handleData(data.data.magazine.magazine);
+          console.log('杂志内容', data.data.magazine.magazine)
+          // 处理数据（吧视频放到前一页里面）
+          // data.data.magazine.magazine = self.handleData(data.data.magazine.magazine);
+          // data.data.magazine.magazine = data.data.magazine.magazine
           self.setData({
             data: data.data.magazine,
+            sold: data.data.magazine.sold,
             imgUrl: app.globalData.imgUrl
-          })
+          });
+          wx.setNavigationBarTitle({
+            title: data.data.magazine.name,
+          });
           
-        } else {
+        }
+        else if (data.data.status == 0) {
+          wx.showToast({
+            title: data.data.mess,
+            icon: 'none',
+            duration: 2000
+          })
+          return false;
+        }
+         else {
           // 弹出阅读码弹框
           wx.showToast({
             title: '无效阅读码',
@@ -74,6 +187,35 @@ Page({
         console.log(err);
       }
     })
+
+    // 图片加载超时
+    interval = setInterval(()=>{
+      let progress = this.data.progress;
+      let timeProgress = this.data.timeProgress;
+      let loadCompleteRate = this.data.loadCompleteRate;
+      timeProgress += 10;
+      console.log('加载超时', timeProgress, progress)
+      
+      this.setData({
+        timeProgress: timeProgress,
+        progress: progress > timeProgress ? progress : timeProgress
+      });
+
+      if (progress >= loadCompleteRate){
+        clearInterval(interval);
+      }
+    },1500)
+
+    // setTimeout(()=>{
+    //   if (this.data.progress < 95) {
+    //     console.log('加载超时。。。')
+    //     this.setData({
+    //       loadComplete: this.data.data.magazine.length,
+    //       progress: '100'
+    //     });
+    //   }
+    // },15000)
+
   },
 // 处理拿到的杂志数据
     handleData:function(data){
@@ -122,7 +264,6 @@ Page({
         console.log('屏幕数据', res);
         var windowHeight = res.windowHeight;
         var windowWidth = res.windowWidth;
-
         if (windowHeight / windowWidth >= 1.7) {
           console.log('全面屏');
           self.setData({ //适配全面屏
@@ -130,8 +271,8 @@ Page({
           })
         } else {
           console.log('非全面屏');
-          self.setData({ //适配非全面屏 19:9
-            imgType: 'aspectFill'
+          self.setData({ //适配非全面屏 16:9
+            imgType: 'aspectFit'
           })
         }
       },
@@ -154,11 +295,17 @@ Page({
   onReachBottom: function () {
 
   },
-
   /**
    * 用户点击右上角分享
    */
-  onShareAppMessage: function () {
-
-  }
+  onShareAppMessage: function (res) {
+    if (res.from === 'button') {
+      // 来自页面内转发按钮
+      console.log(res.target)
+    }
+    return {
+      title: this.data.data.name,
+      path: '/pages/magazine/magazine?id=' + this.data.magazineId
+    }
+  },
 })

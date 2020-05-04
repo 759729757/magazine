@@ -1,7 +1,9 @@
 <!--pages/magazine/magazine.wxml-->
 <view class="full warp">
-  <swiper 
-    autoplay="{{autoplay}}" circular 
+
+ <!-- <image src="{{imgUrl+data.magazineNum+'/'+data.subHeadImg[0]}}" mode="{{imgType}}" class="banner-image" /> -->
+
+  <swiper autoplay="{{autoplay}}" 
     bindanimationfinish="bannerChange"
     >
     <block wx:for="{{data.subHeadImg}}" wx:key='key'>
@@ -12,6 +14,7 @@
       </swiper-item>
     </block>
   </swiper>
+
   <view class="cover-bg">
     <view class="warp flex-col text-white">
       <text class="describe text-opacity">已有{{data.sold}}订阅</text>
@@ -20,14 +23,14 @@
         查看订阅详情 
         <image src="/images/link.png" class="icon"></image>
       </view> -->
-      <view class="flex btn-warp">
-        <view bindtap="goDetail">阅读</view>
+      <view class="flex btn-warp" wx:if="{{showMenu}}" >
+        <view bindtap="read">阅读</view>
         |
         <view bindtap='subscribe'>订阅</view>
       </view>
-      <view class="icon-warp">
-       <image src="/images/down.png" class="icon"></image>
-      </view>
+        <view class="icon-warp">
+        <image src="/images/down.png" class="icon"></image>
+        </view>
     </view>
   </view>
 </view>
@@ -38,17 +41,17 @@
 <view class="hr"></view>
 
 <view class="session">
-  <view class="title text-center text-strong">订阅排行榜</view>
+  <view wx:if="{{ rankingList.length }}" class="title text-center text-strong">订阅排行榜</view>
 
   <view wx:for="{{ rankingList }}" wx:key='key'
   class="flex media flex-between">
     <view class="flex ">
       <view class="text-strong text-barge">{{ index+1 }}</view>
       <view>
-        <image src="{{ item.user[0].headImg }}" class="headImg"></image>
+        <image src="{{ item.user[0].avatarUrl }}" class="headImg"></image>
       </view>
       <view class="flex flex-col">
-        <text>{{ item.user[0].nickName }}</text>
+        <text class="nickName">{{ item.user[0].nickName }}</text>
       </view>
     </view>
     <view >
@@ -63,11 +66,18 @@
 <!-- 阅读吗弹框 -->
 <view class='cover' wx:if="{{readCord}}">
   <view class="fixed-btm bg-white session">
-    <view class="a-line text-left title">请输入阅读吗兑换期刊</view>
+    <view class="a-line text-left title">请输入阅读码兑换期刊（区分大小写）</view>
     <view class='content'>
-      使用阅读码成功兑换期刊后，可免费阅读期刊。已兑换过的期刊无法再次兑换，可将阅读码分享给其他好友。
+      使用阅读码成功兑换期刊后，可免费阅读期刊。
     </view>
-    <input class='input' type='number' bindinput="bindKeyInput" placeholder='输入阅读码'></input>
+    <view class='content'>
+    已兑换过的期刊无法再次兑换，可将阅读码分享给其他好友。
+    </view>
+    <view class='content'>
+    若您已购买该电子刊，请重新进入该页面，将自动跳转。
+    </view>
+
+    <input class='input' type='text' bindinput="bindKeyInput" placeholder='输入阅读码'></input>
     <view class='btn2-warp'>
       <view class='btn btn-cencel' bindtap='cancelReadCord'>取消</view>
       <view class='btn btn-red' bindtap='readByCord'>确定</view>
@@ -78,21 +88,60 @@
 <view class='cover' wx:if="{{ purchase}}">
   <view class="fixed-btm bg-white session">
      <view class="a-line text-left title">{{data.title}}</view>
-      <view class="content">点此查看购买说明</view>
+      <!-- <view class="content">点此查看购买说明</view> -->
       <view>
          <radio-group class="radio-group" bindchange="radioChange">
-                <radio class="radio" wx:for-items="{{setMeal}}" wx:key="name"  value="{{index}}" checked="{{item.checked}}">
-                    <view>
-                      {{item.number}}本
-                      <text class='abs-right'>￥{{item.price}}</text>
-                    </view>
-                </radio>
-            </radio-group>
+            <radio class="radio" wx:for-items="{{setMeal}}" wx:key="name"  value="{{index}}" checked="{{item.checked}}">
+                <view>
+                  {{item.number}}本
+                  <text class='abs-right'>￥{{item.price}}</text>
+                </view>
+            </radio>
+            
+            <radio class="radio" wx:key="name" bindtap="clickBuyInput"
+            value="{{index}}" checked="{{item.checked}}">
+              <view>
+              <text class="pull-left" bindtap="clickBuyInput">自定义：</text>
+                  <input class="weui-input" type="number" focus="{{buyInputFocus}}" maxlength="5" bindinput="bindBuyInput" bindblur="chechBuyInput" placeholder="自定义" value="{{selfMenu.number}}" />
+                  <text class='abs-right'>￥{{selfMenu.price}}</text>
+              </view>
+            </radio>
+          </radio-group>
       </view>
       <view class='btn2-warp'>
         <view class='btn btn-cencel' bindtap='cancelPurchase'>取消</view>
-        <view class='btn btn-red' bindtap='purchaseMgz'>确认支付</view>
+         <button class='btn btn-red' catchtap='purchaseMgz'
+          disabled='{{paybtn}}'>购买</button>
+        <!-- <view class='btn btn-red' bindtap='purchaseMgz'>购买</view> -->
     </view>
+  </view>
+</view>
+
+<!--wxml 判断 url 是图片还是视频-->
+<wxs module="match">
+  var matchType = function(url){
+    var reg = getRegExp('mp4$|wmv$|MP4');
+    return reg.test(url) ? 'video' : 'image'
+  };
+  module.exports.matchType = matchType;
+</wxs>
+<!-- 资源预加载 -->
+<view>
+  <view wx:for="{{preLoad}}" wx:key='key' class="preLoad">
+     <image
+            wx:if="{{ match.matchType(item.url)=='image' }}"
+            src="{{ imgUrl+data.magazineNum+'/'}}{{imgType=='widthFix'?item.url:(item.subUrl?item.subUrl:item.url)}}" 
+            class="banner-image {{current}}" 
+          />
+
+            <video
+             wx:if="{{ match.matchType(item.url)=='video' }}"
+             src="{{ imgUrl+data.magazineNum+'/'}}{{imgType=='widthFix'?item.url:(item.subUrl?item.subUrl:item.url)}}" 
+             autoplay="{{false}}"
+             custom-cache="{{false}}"
+              >
+              <!-- controls="{{false}}" -->
+           </video>
   </view>
 </view>
 

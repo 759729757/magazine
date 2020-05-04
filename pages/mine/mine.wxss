@@ -5,7 +5,7 @@
 .flex-col{align-items: center;justify-content: space-between;}
 .flex-left .flex-col{align-items: flex-start;}
 .content{margin: 30rpx 0;}
-.headImg{width: 170rpx;height: 170rpx;border-radius: 170rpx;border: 2px white solid;box-shadow: 0 0 20rpx 0 #ccc;margin-bottom: 15rpx;}
+.headImg{width: 170rpx;height: 170rpx;border-radius: 170rpx;border: 2px white solid;box-shadow: 0 0 20rpx 0 #ccc;margin-bottom: 15rpx;overflow: hidden;}
 .text-sm{color: #000;}
 .icon{width: 70rpx;height: 70rpx;border-radius: 70rpx;margin-bottom: 15rpx;}
 .tab-warp{border-bottom: 2.5px solid #f7f7f7;}

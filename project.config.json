@@ -6,6 +6,7 @@
 	"setting": {
 		"urlCheck": false,
 		"es6": true,
+		"enhance": true,
 		"postcss": true,
 		"minified": true,
 		"newFeature": true,
@@ -17,11 +18,12 @@
 			"ignore": [],
 			"disablePlugins": [],
 			"outputPath": ""
-		}
+		},
+		"bundle": true
 	},
 	"compileType": "miniprogram",
-	"libVersion": "2.10.2",
-	"appid": "wxefaaeea96e92322c",
+	"libVersion": "2.11.0",
+	"appid": "wx2ac6c463e7b2c49e",
 	"projectname": "magazine",
 	"debugOptions": {
 		"hidedInDevtools": []
@@ -71,7 +73,7 @@
 					"id": 2,
 					"name": "pages/magazine/magazine",
 					"pathName": "pages/magazine/magazine",
-					"query": "id=5e3da221645e6782ecf15307",
+					"query": "id=5e75f67663d0aa0b948cd996",
 					"scene": null
 				},
 				{

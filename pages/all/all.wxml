@@ -4,21 +4,20 @@
 </view>
 
 <view class="hr"></view>
-<view class="session flex-left">
-  
+<!-- 显示分类 -->
+<!-- <view class="session flex-left">
   <view class="tab {{tabIndex=='-1' ? 'active':''}}"
   bindtap="chooseTab" data-index="-1" 
   >
     全部
   </view>
-
   <view class="tab {{index==tabIndex ? 'active':''}}" 
   bindtap="chooseTab" data-index="{{index}}" 
   wx:for='{{tab}}' wx:key='key'>{{item.name}}</view>
-</view>
+</view> -->
 
 <view class="flex content" wx:if="data">
-   <view wx:for='{{data}}' wx:key class="item-5" data-bookid="{{ item._id }}" bindtap="goMgz" >
+   <view wx:for='{{data}}' wx:key="index" class="item-5" data-bookid="{{ item._id }}" bindtap="goMgz" >
     <view class="shadow">
       <image class="pic" mode="widthFix" src="{{ imgUrl+item.magazineNum+'/'+item.subHeadImg[0] }}"></image>
       <view class="describe">{{item.name}}</view>

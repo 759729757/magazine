@@ -1,4 +1,6 @@
 /**index.wxss**/
+
+.page{min-height: 98vh;display: flex;flex-direction: column;justify-content: center;}
 swiper{
   /* width: 80%;margin: auto; */
   padding: 0 8%;
@@ -13,7 +15,8 @@ justify-content: center;align-items: center;text-align: center;}
 .banner-warp{
   width: 560rpx;
   display: inline-block;
-box-shadow: 0 0 5px 0 #999;
+/* box-shadow: 0 0 5px 0 #999; */
+  border: #eee solid 1px;
 }
 .subscript{
   font-size: 12px;margin: 30rpx 0;
@@ -29,8 +32,9 @@ box-shadow: 0 0 5px 0 #999;
   font-size: 10px;margin-top: 10rpx;color: #666;
 }
 .part-warp{
-  padding-bottom: 80rpx;border-bottom: 30rpx #eee solid;
+  padding-bottom: 80rpx;
 }
+.top-warp{padding-top: 50rpx;border-top: 30rpx #eee solid;}
 .badge{
   width: 50rpx;height: 70rpx;background: #ccc;font-size: 18px;color: white;text-align: center;font-family: "宋体";font-style: italic;
 }
@@ -42,9 +46,19 @@ box-shadow: 0 0 5px 0 #999;
 .item{margin: 20rpx 0;margin-top: 0;}
 .flex{align-items:stretch;}
 
+/* 加载动画 */
+.loading-cover{display: flex;justify-content: center;transition: .6;flex-direction: column;align-items: center;width: 100%;height: 100vh;position: fixed;z-index: 98;background: white;}
+.loading-cover.hide{animation: hide .55s .2s 1 ease-out forwards;}
+@keyframes hide{
+  0%{opacity: 1;}
+  100%{opacity: 0;display: none;z-index: -1;}
+}
+.loading-cover.show{display: flex;}
+.loading-cover image{position: relative;width: 65vw;border: none;
+z-index: 99;height: auto;}
+.loading-bg-black{background: black;position: relative;margin-top: -10vh;overflow: hidden;}
+.loading-bg-red{background: #d90110;position: absolute;width: 100%;left: 0;bottom: 0;transition: all .2s;}
 
-
-
-
-
-
+.title-warp{margin: 20px 0 10px 0;font-weight: bold;}
+.box{margin-bottom: 10vh;}
+.main{margin-top: 5vh;}

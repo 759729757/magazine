@@ -1,17 +1,19 @@
 <view class="container session flex">
-  <view class="item-3 flex-col">
+  <!-- <view class="item-3 flex-col">
     <image src="/images/chat.png" class="icon"></image>
     <text class="text-sm">客户服务</text>
-  </view>
+  </view> -->
   <view class="item-3 flex-col">
-    <image src="{{user.headImg}}" 
-    class="headImg"></image>
-    <text class="text-lg">{{user.nickName}}</text>
+    <!-- <image src="{{user.avatarUrl}}" class="headImg"></image> -->
+    <view class="headImg">
+      <open-data type="userAvatarUrl"></open-data>
+    </view>
+   <open-data type="userNickName" ></open-data>
   </view>
-  <view class="item-3 flex-col">
+  <!-- <view class="item-3 flex-col">
     <image src="/images/vip.png" class="icon"></image>
     <text class="text-sm">会员中心</text>
-  </view>
+  </view> -->
 </view>
 
 <view class="flex text-center tab-warp">
@@ -45,7 +47,7 @@
           <view class="describe">可使用：{{item.tradeCount}}已使用：{{item.readCodeUsed}}</view>   
         </view>
         <view class="flex-icon read-code">
-          <text>阅读码：{{item.readCode}}</text>
+          <text  bindlongtap='copy' data-code="{{item.readCode}}">阅读码：{{item.readCode}}</text>
           <!-- <image src="/images/next.png" class="icon"></image> -->
         </view>
            

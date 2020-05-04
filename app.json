@@ -6,6 +6,7 @@
     "pages/magazine/magazine",
     "pages/magazine/detail",
     "pages/search/search",
+    "pages/authorize/authorize",
     "pages/logs/logs"
   ],
   "tabBar": {
@@ -15,12 +16,6 @@
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "推荐",
-        "iconPath": "images/_recommend.png",
-        "selectedIconPath": "images/recommend.png"
-      },
-      {
-        "pagePath": "pages/all/all",
         "text": "全部期刊",
         "iconPath": "images/_book.png",
         "selectedIconPath": "images/book.png"
@@ -34,7 +29,7 @@
     ]
   },
   "window": {
-    "backgroundTextStyle": "light",
+    "backgroundTextStyle": "dark",
     "navigationBarBackgroundColor": "#fff",
     "navigationBarTitleText": "WeChat",
     "navigationBarTextStyle": "black"
