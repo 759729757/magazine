@@ -77,8 +77,8 @@ var baseUrl = 'https://wechat.planetofficial.cn'
         }
       })
     }) 
-    
   },
+  
   async getUserInfo(){
     // 获取用户信息
     if (this.globalData.isUpdateUserInfo){return false;}//已经上传过一次，无需重复提交
