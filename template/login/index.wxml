@@ -3,17 +3,17 @@
     <view class="s-b">
       <view class="s-l-b">
         <image src="/images/nologin.png" />
-        <text>授权登录</text>
+        <text>绑定您的手机号</text>
       </view>
       <view class="s-t-b">
         <view class="s-t-i">
-          <text>·</text>请授权小程序登录</view>
+          <text>·</text>请授权我们绑定您的手机号</view>
+        <view class="s-t-i">
+          <text>·</text>手机号可做网页端登录账号</view>
         <view class="s-t-i">
           <text>·</text>我们不会公布您的这些信息</view>
-        <view class="s-t-i">
-          <text>·</text>只是为了给您提供更好的服务</view>
       </view>
-      <button class="l" open-type="getUserInfo" bindgetuserinfo="processLogin">允许</button>
+      <button class="l" open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">允许</button>
       <button class="c" bindtap="cancelLogin" type="default">暂不登录</button>
     </view>
   </view>

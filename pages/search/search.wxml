@@ -1,6 +1,6 @@
 <view class="input-search">
   <image class="icon" src="/images/search.png"></image>
-  <input focus="true" bindconfirm="search" placeholder="搜索您感兴趣的电子刊"></input>
+  <input focus="true" bindconfirm="search" placeholder="搜索您感兴趣的内容"></input>
 </view>
 
 <view class="flex content" wx:if="data">

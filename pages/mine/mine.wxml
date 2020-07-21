@@ -56,3 +56,7 @@
     </view>
   </view>
 </view>
+
+<!-- 
+<import src="/template/login/index.wxml" />
+<template is="apifmLogin" data="{{wxlogin: wxlogin}}" /> -->

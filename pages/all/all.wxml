@@ -2,7 +2,7 @@
   <image class="icon" src="/images/search.png"></image>
   <text class="input">搜索您感兴趣的电子刊</text>
 </view>
-
+  
 <view class="hr"></view>
 <!-- 显示分类 -->
 <!-- <view class="session flex-left">

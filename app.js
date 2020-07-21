@@ -1,8 +1,9 @@
 //app.js
 // 所有ajax的链接接口
-var baseUrl = 'https://wechat.planetofficial.cn'
+var baseUrl = 'https://wechat.studiosortie.com'
+// var baseUrl = 'http://localhost:3000'
 
- App({
+ App({ 
   onLaunch: function () {
     // wx.hideTabBar({
     //   animation: false //是否需要过渡动画
@@ -18,7 +19,7 @@ var baseUrl = 'https://wechat.planetofficial.cn'
           data: { code: res.code },
           url: self.globalData.ajaxUrl + '/loginByCode',
           success: function (data) {
-            console.log('login:', data);
+            console.log('loginByCode:', data);
             if(data.data.status == 1){
               let token = data.data.token;
               self.globalData.token = token; //保存token
@@ -40,7 +41,10 @@ var baseUrl = 'https://wechat.planetofficial.cn'
       }
     })
    
-    // 可以通过 wx.getSetting 先查询一下用户是否授权了 "scope.record" 这个 scope
+ 
+  },
+  getSetting(){
+   // 可以通过 wx.getSetting 先查询一下用户是否授权了 "scope.record" 这个 scope
     var self = this;
     wx.getSetting({
       success(res) {
@@ -68,6 +72,7 @@ var baseUrl = 'https://wechat.planetofficial.cn'
         }
       }
     })
+
   },
   getSysInfo() {
     return new Promise(function (resolve, reject) {
@@ -100,9 +105,19 @@ var baseUrl = 'https://wechat.planetofficial.cn'
                 method: 'post',
                 header: { 'Authorization': self.globalData.token },
                 url: self.globalData.ajaxUrl + '/updateUserInfo',
-                data: res.userInfo,
+                data: { 
+                  userInfo: res.userInfo,
+                  encryted:res.encryptedData,
+                  iv:res.iv
+                  } ,
                 success: function (data) {
                   console.log('updateUserInfo', data);
+                  self.globalData.userInfo = data.data;
+                  // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+                  // 所以此处加入 callback 以防止这种情况
+                  if (self.userInfoReadyCallback) {
+                    self.userInfoReadyCallback(data)
+                  }
                 },
                 error: function (err) {
                   console.log('updateUserInfo err', err);
@@ -111,11 +126,7 @@ var baseUrl = 'https://wechat.planetofficial.cn'
 
               self.globalData.userInfo = res.userInfo
 
-              // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
-              // 所以此处加入 callback 以防止这种情况
-              if (self.userInfoReadyCallback) {
-                self.userInfoReadyCallback(res)
-              }
+
             }
           })
         }else{
@@ -128,7 +139,7 @@ var baseUrl = 'https://wechat.planetofficial.cn'
 
   globalData: {
     isUpdateUserInfo:false,
-    ajaxUrl: baseUrl +'/client',
+    ajaxUrl: baseUrl,
     token:'',
     userInfo: null,
     imgUrl: baseUrl+'/images/magazines/'

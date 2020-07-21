@@ -1,0 +1,64 @@
+/*这是配置animate动画的文件*/
+
+.fadeIn{
+    animation: fadeIn 1s ease-in;
+}
+.fadeInDown{
+    animation: fadeInDown 1s ease-in;
+}
+.fadeInLeft{
+    animation: fadeInLeft 1s ease-in;
+}
+.fadeInRight{
+    animation: fadeInRight 1s ease-in;
+}
+.fadeInUp{
+    animation: fadeInUp 1s ease-in;
+}
+.bounceIn{
+    animation: bounceIn 1s ease-in;
+}
+.bounceInDown{
+    animation: bounceInDown 1s ease-in;
+}
+.bounceInLeft{
+    animation: bounceInLeft 1s ease-in;
+}
+.bounceInRight{
+    animation: bounceInRight 1s ease-in;
+}
+.bounceInUp{
+    animation: bounceInUp 1s ease-in;
+}
+.fadeIn{
+    animation: fadeIn 1s ease-in;
+}
+.fadeIn{
+    animation: fadeIn 1s ease-in;
+}
+.fadeIn{
+    animation: fadeIn 1s ease-in;
+}
+.fadeIn{
+    animation: fadeIn 1s ease-in;
+}
+.fadeIn{
+    animation: fadeIn 1s ease-in;
+}
+.fadeIn{
+    animation: fadeIn 1s ease-in;
+}
+.fadeIn{
+    animation: fadeIn 1s ease-in;
+}
+.fadeIn{
+    animation: fadeIn 1s ease-in;
+}
+.fadeIn{
+    animation: fadeIn 1s ease-in;
+}
+.fadeIn{
+    animation: fadeIn 1s ease-in;
+}
+
+

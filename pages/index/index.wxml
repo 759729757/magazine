@@ -1,60 +1,24 @@
-<!-- 加载动画 -->
-<!-- <view class="loading-cover {{progress >= 95 ? 'hide':'show'}}">
-  <view class="loading-bg-black">
-    <view class="loading-bg-red" 
-    style="height:{{progress}}%"></view>
-      <image mode="widthFix" bindload="imgLoad"
-       src="../../images/loading.png"></image>
-  </view>
-</view> -->
 
+
+<!-- <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">2323</button> -->
 
 <!-- 内容 -->
 <view class="page">
-  <!-- swiper -->
   <view>
-    <!-- <view class="nav-warp">
-      <view class="title">
-        {{banner[bannerId].name}}
-      </view>
-      <view class="subTitle">
-        {{banner[bannerId].subTitle}}
-      </view>
-    </view>
-    <view class="part-warp">
-      <swiper autoplay="{{autoplay}}" circular previous-margin="-10px" next-margin="-10px" bindanimationfinish="bannerChange" easing-function="easeOutCubic" interval="{{interval}}" duration="{{duration}}">
-        <block wx:for="{{banner}}" wx:key="key">
-          <swiper-item class='box'>
-            <view class="banner-warp flex-col" data-bookid="{{ item._id }}" bindtap="goMgz">
-              <image class="banner-image" bindload="imgLoad" mode="widthFix" src="{{ imgUrl+item.magazineNum+'/'+item.subHeadImg[0] }}" />
-              <view class="flex subscript">
-                <image class="icon" src="/images/sold.png"></image>
-                已有 {{item.sold}} 人订阅
-              </view>
-            </view>
-          </swiper-item>
-        </block>
-      </swiper>
-
-    </view> -->
-
     <view class="main">
 
       <block wx:for="{{banner}}" wx:key="key">
-        <view class="title-warp">
-          <view class="title">
-            {{item.name}}
-          </view>
-          <view class="subTitle">
-            {{item.subTitle}}
-          </view>
-        </view>
         <view class='box'>
-          <view class="banner-warp flex-col" data-bookid="{{ item._id }}" bindtap="goMgz">
-            <image class="banner-image" bindload="imgLoad" mode="widthFix" src="{{ imgUrl+item.magazineNum+'/'+item.subHeadImg[0] }}" />
-            <view class="flex subscript">
-              <image class="icon" src="/images/sold.png"></image>
+          <view class="banner-warp flex-col"  >
+            <image class="banner-image" bindload="imgLoad" mode="widthFix" src="{{item.headImg }}" />
+            <view class=" subscript">
               已有 {{item.sold}} 人订阅
+            </view>
+            <view class="title-warp">
+              <view class="title">
+                {{item.name}}
+              </view>
+              <view class="btn" data-bookid="{{ item._id }}" bindtap="goMgz" >阅读</view>
             </view>
           </view>
         </view>
@@ -87,3 +51,8 @@
     </view>
   </view>
 </view>
+
+
+
+<import src="/template/login/index.wxml" />
+<template is="apifmLogin" data="{{wxlogin: wxlogin}}" />

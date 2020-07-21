@@ -1,4 +1,5 @@
 // pages/magazine/detail.js
+var WxParse = require('../../wxParse/wxParse.js');
 const app = getApp();
 var videoContext ={};
 var interval ={};
@@ -10,7 +11,7 @@ Page({
     current: 0, videoArr: [], showFlag: '',//显示视频
     progress: 0,// 加载进度
     sold:1,//杂志的销售数量
-
+    imgType:'widthFix',//图片显示模式
     loadComplete:0,//图片加载完成个数
     imgProgress: 0,//图片加载进度
     timeProgress: 0,//加载太慢时主动模拟动画
@@ -132,9 +133,10 @@ Page({
     console.log('readCode', options)
     var data = {
       magazine: id,
+      // _id: id,
     }
     this.setData({
-      magazineId : id
+      magazine : id
     })
     if (readCode) data.readCode = readCode;
 
@@ -143,27 +145,35 @@ Page({
       title: '加载中',
     })
     var self = this;
-    data.token = app.globalData.token;
+    // data.token = app.globalData.token;
     wx.request({
       method: 'get',
       header: { 'Authorization': app.globalData.token },
       url: app.globalData.ajaxUrl + '/readMgz',
       data: data,
       success: function (data) {
-        console.log('request', data);
-        if (data.data.status == 1) {
+        if (data.statusCode == 200) {
+          console.log('request', data.data.magazine);
+          var magazine = data.data.magazine;
           // 已经买过了
-          console.log('杂志内容', data.data.magazine.magazine)
-          // 处理数据（吧视频放到前一页里面）
-          // data.data.magazine.magazine = self.handleData(data.data.magazine.magazine);
-          // data.data.magazine.magazine = data.data.magazine.magazine
+         for(var i=0;i<magazine.content.length;i++){
+          //  循环每一页
+           for (var j = 0; j < magazine.content[i].length;j++){
+             magazine.content[i][j].style = formatStyle(magazine.content[i][j].style );
+             if (magazine.content[i][j].type==='text'){
+              //  如果是文本，需要另做处理
+               WxParse.wxParse('article', 'html', magazine.content[i][j].content, self, 5);
+             }
+            }
+         }
+          // console.log('杂志内容', magazine)
           self.setData({
-            data: data.data.magazine,
-            sold: data.data.magazine.sold,
+            data: magazine,
+            sold: magazine.sold,
             imgUrl: app.globalData.imgUrl
           });
           wx.setNavigationBarTitle({
-            title: data.data.magazine.name,
+            title: magazine.name,
           });
           
         }
@@ -203,6 +213,7 @@ Page({
 
       if (progress >= loadCompleteRate){
         clearInterval(interval);
+        wx.hideLoading();
       }
     },1500)
 
@@ -262,19 +273,19 @@ Page({
     wx.getSystemInfo({
       success: function (res) {
         console.log('屏幕数据', res);
-        var windowHeight = res.windowHeight;
-        var windowWidth = res.windowWidth;
-        if (windowHeight / windowWidth >= 1.7) {
-          console.log('全面屏');
-          self.setData({ //适配全面屏
-            imgType: 'widthFix'
-          })
-        } else {
-          console.log('非全面屏');
-          self.setData({ //适配非全面屏 16:9
-            imgType: 'aspectFit'
-          })
-        }
+         windowHeight = res.windowHeight;
+         windowWidth = res.windowWidth;
+        // if (windowHeight / windowWidth >= 1.7) {
+        //   console.log('全面屏');
+        //   self.setData({ //适配全面屏
+        //     imgType: 'widthFix',
+        //   })
+        // } else {
+        //   console.log('非全面屏');
+        //   self.setData({ //适配非全面屏 16:9
+        //     imgType: 'aspectFit',
+        //   })
+        // }
       },
     })
 
@@ -309,3 +320,39 @@ Page({
     }
   },
 })
+var windowHeight =0;
+var windowWidth =0;
+var ruleW = 375,ruleH = 724;
+function formatStyle(obj){
+  var style="";
+
+  for(var item in obj){
+    switch (item) {
+      case 'width' : case 'left':
+        var r = obj[item].replace('px','');
+        obj[item] = GetPercent(r,ruleW)+'vw';
+        break;
+      case 'height': case 'top':
+        var r = obj[item].replace('px', '');
+        obj[item] = GetPercent(r, ruleH) + 'vh';
+        break;
+      case 'zIndex':
+        style = style + 'z-index' + ":" + obj[item] + ";";
+        break;
+
+    }
+    style=style+item+":"+obj[item]+";";
+  }
+
+  return style;
+}
+
+function GetPercent(num, total) {
+  num = parseFloat(num);
+  total = parseFloat(total);
+  if (isNaN(num) || isNaN(total)) {
+    return "-";
+  }
+  return total <= 0 ? 0 : (Math.round(num / total * 10000) / 100.00);
+}
+

@@ -4,6 +4,7 @@ const app = getApp()
 
 Page({
   data: {
+    wxlogin: true,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
     banner: [], bannerId:0,
     top:[],
@@ -15,7 +16,35 @@ Page({
     progress: 0,
     loadComplete: 0,//图片加载完成个数
   },
-
+  getPhoneNumber(e) {
+    console.log(e.detail.iv)
+    console.log(e.detail.encryptedData)
+    if (!e.detail.encryptedData){
+      return;
+    }
+    // 将用户手机号发送到后台保存
+    var self = this;
+    wx.request({
+      method: 'post',
+      header: { 'Authorization': app.globalData.token },
+      url: app.globalData.ajaxUrl + '/updatePhone',
+      data: {
+        encryted: e.detail.encryptedData,
+        iv: e.detail.iv
+      },
+      success: function (data) {
+        console.log('bindPhone', data);
+      },
+      error: function (err) {
+        console.log('bindPhone err', err);
+      },
+      complete:function(){
+        self.setData({
+          wxlogin: true,
+        })
+      }
+    })
+  },
   /// 求百分比
   GetPercent: function (num, total) {
     num = parseFloat(num);
@@ -63,6 +92,21 @@ Page({
     console.log(e.detail.userInfo)
   },
   
+  onLoad:function(){
+    //   // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
+    //   // 所以此处加入 callback 以防止这种情况
+    const self = this;
+      app.userInfoReadyCallback = res => {
+        console.log('callback', res)
+        if (!res.data.data.phoneNumber){
+          self.setData({
+            wxlogin:false
+          })
+        }
+      }
+
+  },
+
   /**
   * 生命周期函数--监听页面显示
   */
@@ -72,7 +116,7 @@ Page({
       imgUrl: app.globalData.imgUrl
     });
     wx.setNavigationBarTitle({
-      title: 'Planet电子刊',
+      title: 'Sortie 电子刊',
     })
     this.init();
     // 图片加载超时
@@ -84,15 +128,22 @@ Page({
         });
       }
     }, 5000)
+    // 设置底部tab
+    if (typeof this.getTabBar === 'function' &&
+      this.getTabBar()) {
+      this.getTabBar().setData({
+        selected: 0
+      })
+    }
   },
   init:function(){
     // 获取数据
     var self = this;
     wx.request({
       method: 'get',
-      url: app.globalData.ajaxUrl + '/getBanner',
+      url: app.globalData.ajaxUrl + '/fetchMagazine',
       success: function (data) {
-        console.log('getBanner', data);
+        console.log('init', data);
         self.setData({
           banner: data.data.data,
           total: parseInt(self.data.total) + parseInt(data.data.data.length)
@@ -105,25 +156,6 @@ Page({
         console.log(err);
       }
     })
-    // wx.showLoading({
-    //   title: '读取中',
-    // })
-    // // 拿热门top10 数据
-    // wx.request({
-    //   method: 'get',
-    //   url: app.globalData.ajaxUrl + '/getTop',
-    //   success: function (data) {
-    //     console.log('getTop', data);
-    //     self.setData({
-    //       top: data.data.data,
-    //       total: parseInt(self.data.total) + parseInt(data.data.data.length)
-    //     });
-    //     wx.hideLoading();
-    //   },
-    //   error: function (err) {
-    //     console.log(err);
-    //   }
-    // })
   },
   bannerChange:function(e){
     console.log(e.detail.current)
@@ -148,4 +180,5 @@ Page({
       title: "Planet电子刊",
     }
   },
+
 })

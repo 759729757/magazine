@@ -182,7 +182,7 @@ Page({
   },
   // 观看杂志
   read:function(){
-    var self =this;
+    var self = this;
     if(this.data.isBuy){
       wx.navigateTo({
         url: 'detail?id=' + self.data.magazineId,
@@ -340,7 +340,7 @@ Page({
     // 获取数据
     wx.request({
       method: 'get',
-      url: app.globalData.ajaxUrl + '/getMagazine',
+      url: app.globalData.ajaxUrl + '/fetchMagazine',
       data:{_id:id},
       success: function (data) {
         console.log('getMagazine',data);
@@ -386,6 +386,9 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    //  如果没有拿到用户信息，需要申请拿
+    if (!app.globalData.userInfo) { app.getSetting(); }
+
     // 设置屏幕图片参数
     var self = this;
     wx.getSystemInfo({

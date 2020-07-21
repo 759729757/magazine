@@ -1,0 +1,16 @@
+<!--pages/news/news.wxml-->
+<view class="input-search" bindtap="goSearch">
+  <text class="input">搜索您感兴趣的内容</text>
+  <image class="icon pull-right" src="/images/search.png"></image>
+</view>
+
+<view class="content">
+  <block wx:for="{{ data }}" wx:key="{{index}}">
+    <view class="item" bindtap="goDetail" data-id="{{item._id}}">
+      <image src="{{ item.poster }}" mode="widthFix" class="poster"></image>
+      <text class="title">
+      {{ item.title }}
+      </text>
+    </view>
+  </block>
+</view>

@@ -46,6 +46,11 @@ Page({
     // }
 
   },
+  cancelLogin() {
+    this.setData({
+      wxlogin: true
+    })
+  },
 // 长按复制
   copy: function (e){
     console.log('复制阅读码', e.target.dataset.code)
@@ -79,12 +84,21 @@ Page({
    */
   onReady: function () {
 
+    //  如果没有拿到用户信息，需要申请拿
+    if(!app.globalData.userInfo){app.getSetting();}
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    // 设置底部tab
+    if (typeof this.getTabBar === 'function' &&
+      this.getTabBar()) {
+      this.getTabBar().setData({
+        selected: 2
+      })
+    }
     // 设置初始数据
     this.setData({
       imgUrl: app.globalData.imgUrl

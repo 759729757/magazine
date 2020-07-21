@@ -3,6 +3,8 @@
     "pages/index/index",
     "pages/all/all",
     "pages/mine/mine",
+    "pages/news/news",
+    "pages/news/detail",
     "pages/magazine/magazine",
     "pages/magazine/detail",
     "pages/search/search",
@@ -10,21 +12,22 @@
     "pages/logs/logs"
   ],
   "tabBar": {
+    "custom": true,
     "color": "#2c2c2c",
     "selectedColor": "#d81e06",
     "backgroundColor": "#ffffff",
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "全部期刊",
-        "iconPath": "images/_book.png",
-        "selectedIconPath": "images/book.png"
+        "text": "ALL全部期刊"
+      },
+      {
+        "pagePath": "pages/news/news",
+        "text": "NEWS时尚资讯"
       },
       {
         "pagePath": "pages/mine/mine",
-        "text": "个人中心",
-        "iconPath": "images/_me.png",
-        "selectedIconPath": "images/me.png"
+        "text": "MINE个人中心"
       }
     ]
   },

@@ -9,7 +9,7 @@
     <block wx:for="{{data.subHeadImg}}" wx:key='key'>
       <swiper-item class='box'>
         <view class="banner-warp flex-col">
-          <image src="{{imgUrl+data.magazineNum+'/'+item}}" mode="{{imgType}}" class="banner-image" />
+          <image src="{{item}}" mode="heightFix" class="banner-image" />
         </view>
       </swiper-item>
     </block>
@@ -25,8 +25,8 @@
       </view> -->
       <view class="flex btn-warp" wx:if="{{showMenu}}" >
         <view bindtap="read">阅读</view>
-        |
-        <view bindtap='subscribe'>订阅</view>
+        <!-- |
+        <view bindtap='subscribe'>订阅</view> -->
       </view>
         <view class="icon-warp">
         <image src="/images/down.png" class="icon"></image>

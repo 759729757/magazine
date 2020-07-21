@@ -26,70 +26,36 @@
   {{progress}}%
   </text>
 </view> -->
+<import src="../../wxParse/wxParse.wxml"/> 
 
 <view class="full warp">
   <swiper autoplay="{{autoplay}}" bindchange="bindchange">
 
-    <block wx:for="{{data.magazine}}" wx:key='key'
-     wx:if="{{ ((imgType == 'widthFix'|| data.subMagazine.length == 0) && ( match.matchType(item.url)=='image' || match.matchType(item.url)=='video' && sold >= (item.videoShowOfSold||0) )) }}">
-      <swiper-item class='box'>
-        <view class="banner-warp flex-col" wx:if="{{ match.matchType(item.url)=='image' }}">
+    <block wx:for="{{data.content}}" wx:key='key'>
+      <swiper-item class=''>
+        <block wx:for="{{item}}" wx:for-index="idx" wx:key='{{idx}}'>
 
-          <!-- <image class="watermark" mode="widthFix" src="../../images/watermark.png" /> -->
-          <!-- 内容为图片时 -->
-          <image wx:if="{{ sold >= (item.videoShowOfSold|0)  }}" bindload="imgLoad" src="{{ imgUrl+data.magazineNum+'/'}}{{item.url}}" mode="{{imgType}}" class="banner-image {{current}}" />
-          <image wx:if="{{ sold < (item.videoShowOfSold||0) && item.subUrl }}" bindload="imgLoad" src="{{ imgUrl+data.magazineNum+'/'}}{{item.subUrl }}" mode="{{imgType}}" class="banner-image {{current}}" />
-        </view>
-        <view class="banner-warp flex-col" wx:if="{{ match.matchType(item.url)=='video' }}">
-          <!-- 视频部分 -->
-          <video class="{{item.videoDirection ? '' : 'column' }} {{item.autoFull ? 'autoFull-':'' }}"
-            custom-cache="{{false}}" 
-            id="{{'video'+index}}" 
-            src="{{ item.fullUrl ? item.fullUrl : ( imgUrl+data.magazineNum+'/'+item.url)}}"                       bindloadedmetadata="videoLoadComplete" 
-            loop="true" 
-            enable-progress-gesture="{{false}}" 
-            enable-auto-rotation="{{item.autoFull}}"
-            autoplay="{{false}}"
-            bindtimeupdate="bindtimeupdate"
-            bindwaiting="bindwaiting"
-            binderror="binderror"
-            object-fit="cover" 
-            controls="{{item.showControls || item.autoFull}}">
-          </video>
-        </view>
+          <block wx:if="{{item.type=='image'}}" >
+            <image bindload="imgLoad" src="{{item.content}}" mode="{{imgType}}" 
+            class="banner-image content  {{index===current ? item.className : idx}}" style='{{item.style}}' />
+          </block>
+          <block wx:if="{{item.type=='text'}}">
+          
+            <view class="content {{item.className}}" style='{{item.style}}'>
+                <template is="wxParse" 
+                data="{{wxParseData:article.nodes}}"/>
+            </view>
+          </block>
+
+
+        </block>
       </swiper-item>
     </block>
 
-    <!-- 这是为旧版手机适配 -->
-    <block wx:if="{{ data.subMagazine }}">
-      <block wx:for="{{data.subMagazine}}" wx:key='key' wx:if="{{ imgType != 'widthFix' && ( match.matchType(item.url)=='image' || match.matchType(item.url)=='video' && sold >= (item.videoShowOfSold||0) )}}">
-        <swiper-item class='box'>
-          <view class="banner-warp flex-col" wx:if="{{ match.matchType(item.url)=='image' }}">
 
-            <!-- <image class="watermark" mode="widthFix" src="../../images/watermark.png" /> -->
-            <!-- 内容为图片时 -->
-            <image wx:if="{{ sold >= (item.videoShowOfSold|0)  }}" bindload="imgLoad" src="{{ imgUrl+data.magazineNum+'/'}}{{item.url}}" mode="{{imgType}}" class="banner-image {{current}}" />
-            <image wx:if="{{ sold < (item.videoShowOfSold||0) && item.subUrl }}" bindload="imgLoad" src="{{ imgUrl+data.magazineNum+'/'}}{{item.subUrl }}" mode="{{imgType}}" class="banner-image {{current}}" />
-          </view>
-          <view class="banner-warp flex-col" wx:if="{{ match.matchType(item.url)=='video' }}">
-            <!-- 视频部分 -->
-            <video class="{{item.videoDirection ? '' : 'column' }} {{item.autoFull ? 'autoFull':'' }}" id="{{'video'+index}}"
-            src="{{ imgUrl+data.magazineNum+'/'+item.url}}"   
-             bindloadedmetadata="videoLoadComplete" loop="true" enable-progress-gesture="{{false}}"
-              autoplay="{{false}}"
-               custom-cache="{{false}}" object-fit="cover"
-              bindtimeupdate="bindtimeupdate"
-              bindwaiting="bindwaiting"
-              binderror="binderror"
-               controls="{{item.showControls|| item.autoFull}}">
-              <!-- controls="{{false}}" -->
-            </video>
-          </view>
-        </swiper-item>
-      </block>
-    </block>
+
   </swiper>
-<!-- 视频播放卡慢，或者出错的时候触发 -->
+  <!-- 视频播放卡慢，或者出错的时候触发 -->
   <!-- <view class="reload" bindtap="reLoadVideo">
     <text>{{videoHini}}</text>
     <image 
