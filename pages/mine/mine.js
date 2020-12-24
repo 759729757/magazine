@@ -6,7 +6,7 @@ Page({
    * 页面的初始数据
    */
   data: {
-    tabIndex: 0, tab1: [], 
+    tabIndex: 1, tab1: [], 
     canIUse: wx.canIUse('button.open-type.getUserInfo')
     ,
   },

@@ -16,9 +16,64 @@ Page({
     imgProgress: 0,//图片加载进度
     timeProgress: 0,//加载太慢时主动模拟动画
 
+    amend:0,//针对非全面屏的修正值，让图片显示区域保持居中
     loadCompleteRate:82,//加载进度阈值，最高100（为避免加载太慢，不用设置到100）
 
   },
+// 保存图片
+ /****长按保存图片 */
+ saveImg: function (e) {
+   wx.showLoading({
+    title: '正在保存图片',
+  })
+  let that=this;
+  this.setData({
+    saveImgUrl:e.target.dataset.src
+  })
+  wx.getSetting({
+    success(res) {
+      //未授权 先授权 然后保存
+      if (!res.authSetting['scope.writePhotosAlbum']) {
+        wx.authorize({
+          scope: 'scope.writePhotosAlbum',
+          success(re) {
+            that.saveToBlum();
+          },
+          fail(){
+            wx.showToast({
+              title: '请授权权限',
+              icon: 'success',
+              duration: 2000
+            })
+          }
+        })
+      }else{
+       //已授 直接调用保存到相册方法
+        that.saveToBlum();
+      }
+    }
+  })  
+},
+saveToBlum:function(){
+  const that = this;
+  wx.downloadFile({
+    url: that.data.saveImgUrl,
+    success: function (res) {
+      wx.saveImageToPhotosAlbum({
+        filePath: res.tempFilePath,
+        success(result) {
+          wx.showToast({
+            title: '保存成功',
+            icon: 'success'
+          })
+        }
+      })
+    },
+    complete:function(res){
+      wx.hideLoading();//关闭提示框
+    }
+  })
+},
       /// 求百分比
   GetPercent:function(num, total) {
     num = parseInt(num);
@@ -45,6 +100,7 @@ Page({
   // 视频加载完成触发
   videoLoadComplete:function(index){
     let arr = this.data.videoArr;
+    console.log('videoLoadComplete',index)
     arr.push(index.currentTarget.id);
     this.imgLoad();
     this.setData({
@@ -105,7 +161,8 @@ Page({
         // 滚到视频页了，播放视频
         videoContext = {};//清空
         videoContext = wx.createVideoContext(video);
-        if (self.data.data.magazine[current].autoFull ){
+        if (self.data.data.content[current].items[0] && 
+          self.data.data.content[current].items[0].autoFull ){
           // 如果设置了全屏播放
           // console.log(self.data.data.magazine[current]);
           videoContext.requestFullScreen();
@@ -158,11 +215,15 @@ Page({
           // 已经买过了
          for(var i=0;i<magazine.content.length;i++){
           //  循环每一页
-           for (var j = 0; j < magazine.content[i].length;j++){
-             magazine.content[i][j].style = formatStyle(magazine.content[i][j].style );
-             if (magazine.content[i][j].type==='text'){
+           for (var j = 0; j < magazine.content[i].items.length;j++){
+             magazine.content[i].items[j].style = formatStyle(magazine.content[i].items[j].style );
+             if (magazine.content[i].items[j].type==='text'){
               //  如果是文本，需要另做处理
-               WxParse.wxParse('article', 'html', magazine.content[i][j].content, self, 5);
+              //  WxParse.wxParse('article', 'html', magazine.content[i].items[j].content, self, 5);
+              WxParse.wxParse('reply' + j, 'html', magazine.content[i].items[j].content , self);
+              if (j === magazine.content[i].items.length - 1) {
+                  WxParse.wxParseTemArray("replyTemArray",'reply', magazine.content[i].items.length, self)
+              }
              }
             }
          }
@@ -173,9 +234,15 @@ Page({
             imgUrl: app.globalData.imgUrl
           });
           wx.setNavigationBarTitle({
-            title: magazine.name,
+            title: " ",
           });
-          
+          // data.forEach((item,index)=>{
+          //     this.createIntersectionObserver().relativeToViewport.observe(`.img-${index}`,res=>{
+          //         if (res.intersectionRatio > 0){
+          //             item["imgShow"] = true
+          //         }
+          //     })
+          // })
         }
         else if (data.data.status == 0) {
           wx.showToast({
@@ -183,9 +250,15 @@ Page({
             icon: 'none',
             duration: 2000
           })
+          wx.switchTab({
+            url: '/pages/index/index'
+          })
           return false;
         }
          else {
+          wx.switchTab({
+            url: '/pages/index/index'
+          })
           // 弹出阅读码弹框
           wx.showToast({
             title: '无效阅读码',
@@ -273,19 +346,28 @@ Page({
     wx.getSystemInfo({
       success: function (res) {
         console.log('屏幕数据', res);
-         windowHeight = res.windowHeight;
-         windowWidth = res.windowWidth;
-        // if (windowHeight / windowWidth >= 1.7) {
-        //   console.log('全面屏');
-        //   self.setData({ //适配全面屏
-        //     imgType: 'widthFix',
-        //   })
-        // } else {
-        //   console.log('非全面屏');
-        //   self.setData({ //适配非全面屏 16:9
-        //     imgType: 'aspectFit',
-        //   })
-        // }
+        windowHeight = res.windowHeight;
+        windowWidth = res.windowWidth;
+        self.setData({ //适配全面屏
+          windowWidth: windowWidth,
+          windowHeight:windowHeight,
+          })
+          var radio = 1.93;
+        if (windowHeight / windowWidth >= 1.7) {
+          console.log('全面屏');
+          // self.setData({ //适配全屏
+          //   // imgType: 'widthFix',
+          //   radio:radio //屏幕比率
+          // })
+        } else {
+          console.log('非全面屏');
+          // radio = 1.62;
+          let amend =(windowWidth * radio - windowHeight) / 2;
+          self.setData({ //适配非全面屏 16:9
+            // imgType: 'aspectFit',
+            amend:amend //设置偏移量 
+          })
+        }
       },
     })
 
@@ -320,19 +402,22 @@ Page({
     }
   },
 })
-var windowHeight =0;
-var windowWidth =0;
+var windowHeight = 0;
+var windowWidth = 0;
 var ruleW = 375,ruleH = 724;
 function formatStyle(obj){
   var style="";
-
   for(var item in obj){
     switch (item) {
       case 'width' : case 'left':
         var r = obj[item].replace('px','');
         obj[item] = GetPercent(r,ruleW)+'vw';
         break;
-      case 'height': case 'top':
+      case 'height':
+        var r = obj[item].replace('px', '');
+        obj[item] = GetPercent(r, ruleH) + 'vh';
+        break;
+      case 'top':
         var r = obj[item].replace('px', '');
         obj[item] = GetPercent(r, ruleH) + 'vh';
         break;

@@ -22,8 +22,8 @@ Page({
     wx.request({
       method: 'get',
       // data: { name: { '$$regex': name } },
-      data: { name:  name  },
-      url: app.globalData.ajaxUrl + '/getMagazine',
+      data: { matchText:  name  },
+      url: app.globalData.ajaxUrl + '/findNewsByName',
       success: function (data) {
         console.log('search:',data);
         self.setData({
@@ -36,7 +36,12 @@ Page({
       }
     })
   },
-
+  goDetail: function (e) {
+    var id = e.currentTarget.dataset.id;
+    wx.navigateTo({
+      url: '/pages/news/detail?id=' + id,
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

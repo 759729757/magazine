@@ -5,8 +5,7 @@
     <cover-view
      class="{{selected === index ? 'active' : '' }}"
     >
-     {{item.text}}
-   
+     {{item.text}} 
     </cover-view>
   </cover-view>
 </cover-view>

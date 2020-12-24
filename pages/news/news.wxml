@@ -5,7 +5,7 @@
 </view>
 
 <view class="content">
-  <block wx:for="{{ data }}" wx:key="{{index}}">
+  <block wx:for="{{ data }}" wx:key="item-{{index}}">
     <view class="item" bindtap="goDetail" data-id="{{item._id}}">
       <image src="{{ item.poster }}" mode="widthFix" class="poster"></image>
       <text class="title">

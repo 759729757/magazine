@@ -6,7 +6,7 @@ Page({
   data: {
     wxlogin: true,
     canIUse: wx.canIUse('button.open-type.getUserInfo'),
-    banner: [], bannerId:0,
+    banner: [], bannerId:0,imgheights:[],
     top:[],
     autoplay: false,
     interval: 5000,
@@ -55,7 +55,7 @@ Page({
     return total <= 0 ? "100" : (Math.round(num / total * 10000) / 100.00);
   },
   // 图片加载完成
-  imgLoad: function (event) {
+  imgLoad: function (e) {
     var num = this.data.loadComplete + 1;
     var total = this.data.total;
     var progress = this.GetPercent(num, total);
@@ -63,14 +63,25 @@ Page({
       loadComplete: num,
       progress: progress
     });
-    // 显示导航栏
-    // if(progress >= '98'){
-    //   setTimeout(()=>{
-    //     wx.showTabBar({
-    //       animation: true //是否需要过渡动画
-    //     })
-    //   },1000)
-    // }
+
+    // 设置图片的宽高
+    var imgwidth = e.detail.width,
+      imgheight = e.detail.height,
+      //宽高比  
+      ratio = imgwidth / imgheight,
+      ratioReal = imgwidth / 328;//缩放比，图片显示宽度为338rpx
+      console.log(ratio,imgwidth, imgheight)
+    //计算的高度值  
+    // var viewHeight = 750 / ratio;
+    var viewHeight = 328 / ratio;
+    var imgheight = viewHeight;
+    var imgheights = this.data.banner;
+    //把每一张图片的对应的高度记录到数组里  
+    imgheights[e.target.dataset.id] = imgheight;
+    // this.setData({
+    //   imgheights: imgheights
+    // })
+
   },
   // 跳转到某个杂志
   goMgz:function(e){
@@ -91,6 +102,7 @@ Page({
   bindGetUserInfo(e) {
     console.log(e.detail.userInfo)
   },
+
   
   onLoad:function(){
     //   // 由于 getUserInfo 是网络请求，可能会在 Page.onLoad 之后才返回
@@ -116,7 +128,7 @@ Page({
       imgUrl: app.globalData.imgUrl
     });
     wx.setNavigationBarTitle({
-      title: 'Sortie 电子刊',
+      title: 'SortieZine',
     })
     this.init();
     // 图片加载超时
@@ -145,7 +157,8 @@ Page({
       success: function (data) {
         console.log('init', data);
         self.setData({
-          banner: data.data.data,
+          banner: [data.data.data.shift()],
+          top: data.data.data,
           total: parseInt(self.data.total) + parseInt(data.data.data.length)
         });
         wx.hideNavigationBarLoading();
@@ -171,13 +184,14 @@ Page({
       hasUserInfo: true
     })
   },
+  
   onShareAppMessage: function (res) {
     if (res.from === 'button') {
       // 来自页面内转发按钮
       console.log(res.target)
     }
     return {
-      title: "Planet电子刊",
+      title: "SortieZine",
     }
   },
 

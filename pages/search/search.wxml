@@ -3,15 +3,26 @@
   <input focus="true" bindconfirm="search" placeholder="搜索您感兴趣的内容"></input>
 </view>
 
-<view class="flex content" wx:if="data">
-   <view wx:for='{{data}}' wx:key class="item-5"  data-bookid="{{ item._id }}" bindtap="goMgz">
+<!-- <view class="flex content" wx:if="data">
+   <view wx:for='{{data}}' wx:key="key-{{index}}" class="item-5" 
+    data-bookid="{{ item._id }}" bindtap="goMgz">
     <view class="shadow">
-      <image class="pic" mode="widthFix" src="{{ imgUrl+item.magazineNum+'/'+item.subHeadImg[0] }}"></image>
-      <view class="describe">{{item.name}}</view>
+      <image class="pic" mode="widthFix" 
+      src="{{item.poster }}"></image>
+      <view class="describe">{{item.title}}</view>
       <view class="text-sm">
         <text>{{item.sold}} 订阅</text>
       </view>
     </view>
    </view>
+</view> -->
+<view class="content">
+  <block wx:for="{{ data }}" wx:key="item-{{index}}">
+    <view class="item" bindtap="goDetail" data-id="{{item._id}}">
+      <image src="{{ item.poster }}" mode="widthFix" class="poster"></image>
+      <text class="title">
+      {{ item.title }}
+      </text>
+    </view>
+  </block>
 </view>
-

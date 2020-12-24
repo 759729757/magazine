@@ -1,5 +1,4 @@
 
-
 <!-- <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">2323</button> -->
 
 <!-- 内容 -->
@@ -10,12 +9,15 @@
       <block wx:for="{{banner}}" wx:key="key">
         <view class='box'>
           <view class="banner-warp flex-col"  >
-            <image class="banner-image" bindload="imgLoad" mode="widthFix" src="{{item.headImg }}" />
+            <image class="banner-image" bindload="imgLoad" 
+              data-id='{{index}}' style="height:{{imgheights[current]}}px;" 
+             mode="widthFix" src="{{item.headImg }}" />
             <view class=" subscript">
               已有 {{item.sold}} 人订阅
             </view>
             <view class="title-warp">
               <view class="title">
+               <text class="sub-title">{{item.subTitle}}</text>
                 {{item.name}}
               </view>
               <view class="btn" data-bookid="{{ item._id }}" bindtap="goMgz" >阅读</view>
@@ -29,24 +31,26 @@
 
   <!-- 下面是热门 -->
   <view>
-    <view wx:if="{{top.length}}">
-      <view class="container top-warp">
+    <view wx:if="{{top.length}}" class="box">
+      <!-- <view class="container top-warp">
         <view class="title text-left session">
           热门TOP10
-        </view>
-      </view>
-      <view class="container flex flex-between">
-        <view wx:for="{{top}}" wx:key="key" class="item-5 item" data-bookid="{{ item._id }}" bindtap="goMgz">
-          <view class="badge {{index%2 ? 'pull-right':'pull-left'}}">{{index+1}}</view>
-          <view class="pic">
-            <image mode="widthFix" bindload="imgLoad" src="{{ imgUrl+item.magazineNum+'/'+item.subHeadImg[0] }}"></image>
-            <view class="describe">{{item.name}}</view>
-            <view class="text-sm">
-              <image src="/images/fire.png" class="icon"></image>
+        </view> 
+      </view> -->
+      <view class="container  commend">
+        <view wx:for="{{top}}" wx:key="key" class="flex-row item-list item" data-bookid="{{ item._id }}" >
+          <!-- <view class="badge {{index%2 ? 'pull-right':'pull-left'}}">{{index+1}}</view> -->
+            <image class="poster-md" mode="widthFix" bindload="imgLoad" src="{{item.headImg }}"></image>
+          <view class="pic flex flex-col">
+            <view class="describe text-left title-warp">{{item.name}}</view>
+            <view class="text-sm text-left">
+              <!-- <image src="/images/fire.png" class="icon"></image> -->
               <text>{{item.sold}} 订阅</text>
             </view>
+            <view class="btn black" data-bookid="{{ item._id }}" bindtap="goMgz" >阅读</view>
           </view>
         </view>
+
       </view>
     </view>
   </view>

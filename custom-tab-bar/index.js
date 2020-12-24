@@ -6,14 +6,14 @@ Component({
     list: [
       {
       pagePath: "/pages/index/index",
-      text: "ALL所有期刊"
+      text: "ALL"
       },
        {
         "pagePath": "/pages/news/news",
-        text: "NEWS时尚咨询"
+        text: " NEWS"
       },{
          "pagePath": "/pages/mine/mine",
-         text: "MINE个人中心"
+         text: " MINE "
       }
     ]
   },

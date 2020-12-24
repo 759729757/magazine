@@ -16,10 +16,10 @@
   </view> -->
 </view>
 
-<view class="flex text-center tab-warp">
-  <view class="item-5 {{tabIndex==0?'active':''}}"
+<view class="flex text-center tab-warp ">
+  <!-- <view class="item-5 {{tabIndex==0?'active':''}}"
   bindtap="setTab" 
-  data-index="0">已购杂志</view>
+  data-index="0">已购杂志</view> -->
   <view class="item-5 {{tabIndex==1?'active':''}}"
   bindtap="setTab" 
    data-index="1">阅读码</view>
@@ -29,7 +29,7 @@
   <view class="flex-left content">
     <view wx:for='{{tab1}}' wx:key='key' class="item-5" data-bookid="{{ item.magazine._id }}" bindtap="goMgz">
       <view class="shadow">
-        <image class="pic" mode="widthFix" src="{{imgUrl+item.magazine.magazineNum+'/'+ item.magazine.subHeadImg[0] }}"></image>
+        <image class="pic" mode="widthFix" src="{{item.magazine.headImg}}"></image>
         <view class="describe">{{item.magazine.name}}</view>
     
       </view>
@@ -40,7 +40,7 @@
 <view wx:if="{{tabIndex==1}}">
   <view class="flex-left content">
     <view wx:for='{{tab2}}' wx:key='key' class="media">
-      <image class="pic2" mode="widthFix" src="{{imgUrl+item.magazine.magazineNum+'/'+ item.magazine.subHeadImg[0]}}"></image>
+      <image class="pic2" mode="widthFix" src="{{item.magazine.headImg}}"></image>
       <view class="flex-col">
           <text class="title ">{{item.magazine.name}}</text>
         <view>

@@ -1,6 +1,8 @@
 /* pages/mine/mine.wxss */
 @import "/template/login/index.wxss";
-
+page{
+  padding-bottom: 100rpx;
+}
 .flex{align-items: flex-end;justify-content: center;}
 .flex-icon{display: flex;align-items: center;justify-content: center;font-size: 12px;}
 .flex-icon .icon{margin-bottom: 0;width: 1.4em; height: 1.4em;}
@@ -10,7 +12,7 @@
 .headImg{width: 170rpx;height: 170rpx;border-radius: 170rpx;border: 2px white solid;box-shadow: 0 0 20rpx 0 #ccc;margin-bottom: 15rpx;overflow: hidden;}
 .text-sm{color: #000;}
 .icon{width: 70rpx;height: 70rpx;border-radius: 70rpx;margin-bottom: 15rpx;}
-.tab-warp{border-bottom: 2.5px solid #f7f7f7;}
+.tab-warp{border-bottom: 2.5px solid #f7f7f7;width: 90%;margin: 0 5%;}
 .tab-warp>view{height: 2.5em;line-height: 2.5em;font-size: 16px;}
 .tab-warp>view::after{content: "";position: absolute;border-bottom: 2.5px solid #d81e06;width: 2em;bottom:-2px;left: calc(50% - 1em);transition: all .35s;transform: scaleX(0);}
 .tab-warp .active{color: #d81e06;position: relative;}

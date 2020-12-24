@@ -1,103 +1,108 @@
 {
-	"description": "项目配置文件",
-	"packOptions": {
-		"ignore": []
-	},
-	"setting": {
-		"urlCheck": false,
-		"es6": true,
-		"enhance": true,
-		"postcss": true,
-		"minified": true,
-		"newFeature": true,
-		"autoAudits": true,
-		"checkInvalidKey": true,
-		"checkSiteMap": true,
-		"uploadWithSourceMap": true,
-		"babelSetting": {
-			"ignore": [],
-			"disablePlugins": [],
-			"outputPath": ""
-		},
-		"bundle": true
-	},
-	"compileType": "miniprogram",
-	"libVersion": "2.11.0",
-	"appid": "wxaa8730bf8449a279",
-	"projectname": "magazine",
-	"debugOptions": {
-		"hidedInDevtools": []
-	},
-	"isGameTourist": false,
-	"simulatorType": "wechat",
-	"simulatorPluginLibVersion": {},
-	"condition": {
-		"search": {
-			"current": -1,
-			"list": []
-		},
-		"conversation": {
-			"current": -1,
-			"list": []
-		},
-		"plugin": {
-			"current": -1,
-			"list": []
-		},
-		"game": {
-			"currentL": -1,
-			"list": []
-		},
-		"gamePlugin": {
-			"current": -1,
-			"list": []
-		},
-		"miniprogram": {
-			"current": 4,
-			"list": [
-				{
-					"id": -1,
-					"name": "pages/all/all",
-					"pathName": "pages/all/all",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/mine/mine",
-					"pathName": "pages/mine/mine",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": 2,
-					"name": "pages/magazine/magazine",
-					"pathName": "pages/magazine/magazine",
-					"query": "id=5f0aaaba7c27ba61a46d253f",
-					"scene": null
-				},
-				{
-					"id": 3,
-					"name": "pages/magazine/detail",
-					"pathName": "pages/magazine/detail",
-					"query": "id=5f0aaaba7c27ba61a46d253f",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/mine/mine",
-					"pathName": "pages/mine/mine",
-					"query": "",
-					"scene": null
-				},
-				{
-					"id": -1,
-					"name": "pages/news/news",
-					"pathName": "pages/news/news",
-					"query": "id=5f0aaaba7c27ba61a46d253f",
-					"scene": null
-				}
-			]
-		}
-	}
+    "description": "项目配置文件",
+    "packOptions": {
+        "ignore": []
+    },
+    "setting": {
+        "urlCheck": false,
+        "es6": false,
+        "enhance": true,
+        "postcss": true,
+        "minified": true,
+        "newFeature": true,
+        "autoAudits": false,
+        "scopeDataCheck": false,
+        "checkInvalidKey": true,
+        "checkSiteMap": true,
+        "uploadWithSourceMap": true,
+        "compileHotReLoad": false,
+        "babelSetting": {
+            "ignore": [],
+            "disablePlugins": [],
+            "outputPath": ""
+        },
+        "bundle": true,
+        "useIsolateContext": true,
+        "useCompilerModule": false,
+        "userConfirmedUseCompilerModuleSwitch": false,
+        "packNpmManually": false,
+        "packNpmRelationList": [],
+        "minifyWXSS": true,
+        "useMultiFrameRuntime": false,
+        "useApiHook": true
+    },
+    "compileType": "miniprogram",
+    "libVersion": "2.10.4",
+    "appid": "wxaa8730bf8449a279",
+    "projectname": "magazine",
+    "debugOptions": {
+        "hidedInDevtools": []
+    },
+    "isGameTourist": false,
+    "simulatorType": "wechat",
+    "simulatorPluginLibVersion": {},
+    "condition": {
+        "search": {
+            "list": []
+        },
+        "conversation": {
+            "list": []
+        },
+        "plugin": {
+            "list": []
+        },
+        "game": {
+            "currentL": -1,
+            "list": []
+        },
+        "gamePlugin": {
+            "list": []
+        },
+        "miniprogram": {
+            "list": [
+                {
+                    "id": -1,
+                    "name": "pages/all/all",
+                    "pathName": "pages/all/all",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "id": -1,
+                    "name": "pages/mine/mine",
+                    "pathName": "pages/mine/mine",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "id": 2,
+                    "name": "pages/magazine/magazine",
+                    "pathName": "pages/magazine/magazine",
+                    "query": "id=5f0aaaba7c27ba61a46d253f",
+                    "scene": null
+                },
+                {
+                    "id": 3,
+                    "name": "pages/magazine/detail",
+                    "pathName": "pages/magazine/detail",
+                    "query": "id=5f0aaaba7c27ba61a46d253f",
+                    "scene": null
+                },
+                {
+                    "id": -1,
+                    "name": "pages/mine/mine",
+                    "pathName": "pages/mine/mine",
+                    "query": "",
+                    "scene": null
+                },
+                {
+                    "id": -1,
+                    "name": "pages/news/news",
+                    "pathName": "pages/news/news",
+                    "query": "id=5f0aaaba7c27ba61a46d253f",
+                    "scene": null
+                }
+            ]
+        }
+    }
 }

@@ -9,7 +9,7 @@
     <block wx:for="{{data.subHeadImg}}" wx:key='key'>
       <swiper-item class='box'>
         <view class="banner-warp flex-col">
-          <image src="{{item}}" mode="heightFix" class="banner-image" />
+          <image src="{{item}}" mode="{{imgType}}" class="banner-image" />
         </view>
       </swiper-item>
     </block>
@@ -28,45 +28,44 @@
         <!-- |
         <view bindtap='subscribe'>订阅</view> -->
       </view>
-        <view class="icon-warp">
+        <!-- <view class="icon-warp">
         <image src="/images/down.png" class="icon"></image>
-        </view>
+        </view> -->
     </view>
   </view>
 </view>
-<view class="container session">
+<!-- 介绍详情 -->
+<!-- <view class="container session">
   <view class="a-line title">{{data.name}}</view>
   <view class="content">{{data.describe}}</view>
 </view>
-<view class="hr"></view>
-
-<view class="session">
-  <view wx:if="{{ rankingList.length }}" class="title text-center text-strong">订阅排行榜</view>
-
+<view class="hr"></view> -->
+<!-- 订阅排行榜 -->
+<view class="session" style="margin-top:30px;">
+  <view wx:if="{{ rankingList.length }}"
+    style="border-bottom: 1px #eee solid;padding-bottom: 10px;"
+   class="title text-center text-strong">订阅排行榜</view>
   <view wx:for="{{ rankingList }}" wx:key='key'
   class="flex media flex-between">
     <view class="flex ">
       <view class="text-strong text-barge">{{ index+1 }}</view>
       <view>
-        <image src="{{ item.user[0].avatarUrl }}" class="headImg"></image>
+        <image src="{{ item.user[0].userInfo.headimgurl || '../../images/defaultUser.png'}}" class="headImg"></image>
       </view>
       <view class="flex flex-col">
-        <text class="nickName">{{ item.user[0].nickName }}</text>
+        <text class="nickName">{{ item.user[0].userInfo.nickname||'神秘的粉丝' }}</text>
       </view>
     </view>
     <view >
         <text class="describe">订阅{{ item.buyNum }}本</text>
     </view>
-  </view>
-
-
-
-</view>
+  </view> 
+   </view>
 
 <!-- 阅读吗弹框 -->
 <view class='cover' wx:if="{{readCord}}">
   <view class="fixed-btm bg-white session">
-    <view class="a-line text-left title">请输入阅读码兑换期刊（区分大小写）</view>
+    <view class="a-line text-left title">请输入阅读码兑换期刊</view>
     <view class='content'>
       使用阅读码成功兑换期刊后，可免费阅读期刊。
     </view>
@@ -127,6 +126,7 @@
 </wxs>
 <!-- 资源预加载 -->
 <view>
+<image class="preLoad" mode="widthFix" src="../../images/loading.png"></image>
   <view wx:for="{{preLoad}}" wx:key='key' class="preLoad">
      <image
             wx:if="{{ match.matchType(item.url)=='image' }}"

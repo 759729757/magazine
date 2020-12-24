@@ -12,22 +12,21 @@
     "pages/logs/logs"
   ],
   "tabBar": {
-    "custom": true,
-    "color": "#2c2c2c",
-    "selectedColor": "#d81e06",
+    "color": "#666666",
+    "selectedColor": "#000000",
     "backgroundColor": "#ffffff",
     "list": [
       {
         "pagePath": "pages/index/index",
-        "text": "ALL全部期刊"
+        "text": "ALL"
       },
       {
         "pagePath": "pages/news/news",
-        "text": "NEWS时尚资讯"
+        "text": "NEWS"
       },
       {
         "pagePath": "pages/mine/mine",
-        "text": "MINE个人中心"
+        "text": "MINE"
       }
     ]
   },

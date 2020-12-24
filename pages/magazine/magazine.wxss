@@ -1,10 +1,10 @@
 /* pages/magazine/magazine.wxss */
 image{max-width: 1000%;}
-.banner-image{min-width: 100%;min-height:100%;}
+.banner-image{width: 100%;}
 .full{height: 100vh;overflow: hidden;}
-.cover-bg,.full swiper,.banner-warp{width: 100%;height: 100%;}
+.cover-bg,.full swiper,.banner-warp{width: 100%;height: 100%;background: black;}
 .warp{position: relative;}
-.cover-bg{height: auto;position: absolute;left: 0;bottom: 0;background:  linear-gradient(0deg,rgba(100,100,100,.6),rgba(255,255,255,.0));}
+.cover-bg{height: auto;position: absolute;left: 0;bottom: 0;background:  linear-gradient(0deg,rgba(100,100,100,.6),rgba(255,255,255,.0));padding-bottom: 6vh;}
 .describe{font-size: 12px;margin: 20rpx 0;}
 .title{font-size: 20px;}
 .btn-warp{font-size: 17px;
@@ -27,7 +27,7 @@ letter-spacing: 15px;
 }
 .title{padding: 0 ;box-sizing: border-box;margin-bottom: 30rpx;}
 .content{font-size: 12px; color: #666;}
-.cover{position: fixed;top: 0;left: 0;background: rgba(0,0,0,.5);width: 100%;height: 100vh;z-index: 99;}
+.cover{position: fixed;top: 0;left: 0;background: rgba(0,0,0,.2);width: 100%;height: 100vh;z-index: 99;}
 .fixed-btm{position: fixed;left: 0;right:0;bottom: 0;padding: 50rpx;}
 .btn2-warp{display: flex;justify-content:space-around;margin-top: 50rpx;}
 .btn2-warp .btn{width: 46%;margin-right: 8%;border-radius: 4px;text-align: center;padding: 10px 0;line-height: 1;}
@@ -43,4 +43,4 @@ letter-spacing: 15px;
 
 .preLoad{width: 1px;height: 1px;overflow: hidden;position: fixed;left: -2px;}
 
-.nickName{width: 8em;overflow: hidden;white-space: nowrap;text-overflow:ellipsis;}
+.nickName{width: 8em;overflow: hidden;white-space: nowrap;text-overflow:ellipsis;font-size: 13px;}

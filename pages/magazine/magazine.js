@@ -8,7 +8,8 @@ Page({
    */
   data: {
     banner: [], readCord: false, purchase: false, autoplay:false,
-    magazineId: '', imgType:'widthFix',
+    magazineId: '', 
+    imgType:'widthFix',//'widthFix',
     chooseMenu: { number: '1', price: '8.00', }
     , setMeal: [
       { number: '1', price: '8.00', checked: 'true' },
@@ -17,7 +18,7 @@ Page({
     ],
     selfMenu: { number: 1, price: '8.00', },//自定义
     rankingList:[],//购买排行版
-
+    magazinePrice:8,
     buyInputFocus:false,
     isBuy:false,//记录是否买过了
     showMenu:false,//显示购买按钮
@@ -127,7 +128,7 @@ Page({
     wx.showLoading({
       title: '读取中'
     })
-    // 检查是否购买过，是的话直接阅读，否则弹出输入阅读码弹框
+    // 检查是否购买过，是的话直接阅读，否则弹出输入阅读码弹框 
     var self = this;
     wx.request({
       method: 'get',
@@ -144,9 +145,9 @@ Page({
         self.setData({
           showMenu: true,
         })
-        if(data.data.status == 1){
+        if(data.data.status == 1 || self.data.magazinePrice == 0){
             // 已经买过了
-          console.log(' 已经买过了');
+          console.log(' 已经买过了',self.data.magazinePrice);
           wx.getSystemInfo({
             success: function (res) {
               var windowHeight = res.windowHeight;
@@ -183,7 +184,7 @@ Page({
   // 观看杂志
   read:function(){
     var self = this;
-    if(this.data.isBuy){
+    if(this.data.isBuy || this.data.price == 0){
       wx.navigateTo({
         url: 'detail?id=' + self.data.magazineId,
       })
@@ -309,8 +310,6 @@ Page({
       }
     })
   },
-
-
   radioChange: function (e) {
     console.log('radio发生change事件，携带value值为：', e.detail.value);
     var meal = this.data.setMeal;
@@ -329,8 +328,9 @@ Page({
     })
     var id = options.id;
     if(!id){
-      wx.navigateBack({
-        delta: 1
+      console.log('没有id')
+      wx.switchTab({
+        url: '/pages/index/index'
       })
     }else{
       self.setData({
@@ -344,11 +344,21 @@ Page({
       data:{_id:id},
       success: function (data) {
         console.log('getMagazine',data);
+        if(data.statusCode !==200){
+          wx.redirectTo({
+            url: 'pages/index/index',
+          })
+          return;
+        }
         var magazine = data.data.data[0];
-        magazine.subHeadImg.shift();//删除第一个，第一个是封面图
+        var magazinePrice = magazine.price;//杂志价格
+        self.setData({
+          magazinePrice:magazinePrice
+        })
+        // magazine.subHeadImg.shift();//删除第一个，第一个是封面图
 
         wx.setNavigationBarTitle({
-          title: magazine.name,
+          title: ' ',
         });
 
         self.setData({
@@ -405,7 +415,7 @@ Page({
         }else{
           console.log('非全面屏', res);
           self.setData({ //适配非全面屏 19:9
-            imgType: 'aspectFill'
+            imgType: 'widthFix'
           })
         }
       },

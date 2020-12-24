@@ -2,7 +2,7 @@
 
 <import src="../../wxParse/wxParse.wxml" />
 
-<view class="content">
+<view class="content  ql-editor">
   <view class="info">
     <text class="title">{{data.title}}</text>
     <text class="time">{{data.update_date}}</text>
@@ -14,20 +14,35 @@
   <block wx:if="{{ data.articleType == 'video' }}">
     <video id="myVideo" src="{{ data.video }}" autoplay enable-play-gesture controls></video>
   </block>
+</view>
+
   <block wx:if="{{ data.articleType == 'swiper' }}">
-    <swiper autoplay>
+    <swiper bindchange="bindSwiperchange" 
+    previous-margin="-20px" next-margin="'-20px'"
+    style="height:{{imgheights[current]}}px;" autoplay>
 
       <block wx:for="{{data.swiper}}" wx:key='key'>
-        <swiper-item class=''>
-
-            <image src="{{item}}" mode="widthFix" 
+        <swiper-item class='' >
+<!-- bindlongtap='saveImg' -->
+            <image show-menu-by-longpress src="{{item}}"  data-src="{{item}}"
+            mode="widthFix" data-id='{{index}}' bindload="imageLoad"
             class="banner-image " />
 
         </swiper-item>
       </block>
     </swiper>
-
+    <view class="content">
+      <text class="small-text">{{current+1}}/{{data.swiper.length}}</text>    
+    </view>
+    <view class="content ql-editor">
+      <template is="wxParse" data="{{wxParseData:article.nodes}}" />
+    </view>
+    
   </block>
 
-
+<view class="content ql-editor">
+  <view wx:if="data.author" class=" footer-author">
+  责任编辑：{{data.author}}
+  </view>
 </view>
+

@@ -1,19 +1,19 @@
 <!--wxml 判断 url 是图片还是视频-->
 <wxs module="match">
-  var matchType = function(url) {
-    var reg = getRegExp('\.mp4|\.wmv|\.MP4');
-    return reg.test(url) ? 'video' : 'image'
-  };
-  module.exports.matchType = matchType;
+	var matchType = function(url) {
+		var reg = getRegExp('\.mp4|\.wmv|\.MP4');
+		return reg.test(url) ? 'video' : 'image'
+	};
+	module.exports.matchType = matchType;
 </wxs>
 <!-- 加载动画 （图片上涨） -->
 <view class="loading-cover {{progress >= loadCompleteRate ? 'hide':'show'}}">
-  <view class="relative">
-    <view class="loading-bg-black"></view>
-    <view class="loading-bg-gray"></view>
-    <view class="loading-bg-red" style="height:{{progress}}%"></view>
-    <image class="loadImg" mode="widthFix" src="../../images/loading.png"></image>
-  </view>
+	<view class="relative">
+		<!-- <view class="loading-bg-black"></view>
+		<view class="loading-bg-gray"></view> -->
+		<view class="loading-bg-red" style="height:{{progress}}%"></view>
+		<image class="loadImg" mode="widthFix" src="../../images/loading.png"></image>
+	</view>
 </view>
 
 <!-- 加载动画2 显示百分比 -->
@@ -26,37 +26,66 @@
   {{progress}}%
   </text>
 </view> -->
-<import src="../../wxParse/wxParse.wxml"/> 
+<import src="../../wxParse/wxParse.wxml" />
 
 <view class="full warp">
-  <swiper autoplay="{{autoplay}}" bindchange="bindchange">
+	<swiper autoplay="{{autoplay}}" bindchange="bindchange" style="height:calc(100vh + {{amend}}px);">
 
-    <block wx:for="{{data.content}}" wx:key='key'>
-      <swiper-item class=''>
-        <block wx:for="{{item}}" wx:for-index="idx" wx:key='{{idx}}'>
+		<block wx:for="{{data.content}}" wx:key='key'
+		 wx:if="{{ sold >= (item.showOfSold||0) &&  sold < ( item.hideOfSold||9999999 ) }}">
+			<swiper-item class=''
+       style='background-color:{{item.bgColor}};overflow:{{item.isScroll?"scroll":"hidden"}};'>
+				<block wx:for="{{item.items}}" wx:for-index="idx" wx:key='{{idx}}'>
+					<block wx:if="{{item.type=='image'}}">
+          <!-- mode="{{imgType}}" bindlongtap='saveImg' -->
+						<image bindload="imgLoad" show-menu-by-longpress mode="{{imgType}}"
+						 data-src="{{item.content}}"
+						 src="{{item.content}}" 
+						 class="content img-{{index}} {{index===current ? item.className : 'blank'}}"
+						 style='{{item.style}};transform: translateY(-{{amend}}px);' />
+					</block>
+					<block wx:if="{{item.type=='text'}}">
+						<view class="content {{index===current ? item.className : 'blank'}}" 
+						style='{{item.style}}'>
+							<!-- <template is="wxParse" data="{{wxParseData:article.nodes}}" /> -->
+								<block wx:for="{{replyTemArray}}" wx:key="*this" wx:for-index="idx1">
+									<block wx:if="{{idx===idx1}}">
+										<template is="wxParse" data="{{wxParseData:item}}" />
+									</block>
+								</block>
+						</view>
+					</block>
+					<block wx:if="{{item.type=='video'}}">
+						<view class="banner-warp flex-col" 
+						  wx:if="{{ ((current-index <= 2)&&(current-index >= -2)) }}"> >
+							<video 
+							 style='{{item.style}};'
+              class="{{item.videoDirection ? '' : 'column' }} {{item.autoFull ? 'autoFull-':'' }}" 
+              custom-cache="{{false}}"
+               id="{{'video'+index}}"
+                src="{{item.content}}"
+                bindloadedmetadata="videoLoadComplete"
+                 loop="true" 
+                 enable-progress-gesture="{{false}}" 
+                 enable-auto-rotation="{{item.autoFull}}" 
+                 autoplay="{{false}}" bindtimeupdate="bindtimeupdate"
+                  bindwaiting="bindwaiting"
+                   binderror="binderror" 
+                   object-fit="cover" 
+                   controls="{{item.showControls || item.autoFull}}">
+							</video>
+						</view>
+					</block>
 
-          <block wx:if="{{item.type=='image'}}" >
-            <image bindload="imgLoad" src="{{item.content}}" mode="{{imgType}}" 
-            class="banner-image content  {{index===current ? item.className : idx}}" style='{{item.style}}' />
-          </block>
-          <block wx:if="{{item.type=='text'}}">
-          
-            <view class="content {{item.className}}" style='{{item.style}}'>
-                <template is="wxParse" 
-                data="{{wxParseData:article.nodes}}"/>
-            </view>
-          </block>
+
+				</block>
+			</swiper-item>
+		</block>
 
 
-        </block>
-      </swiper-item>
-    </block>
-
-
-
-  </swiper>
-  <!-- 视频播放卡慢，或者出错的时候触发 -->
-  <!-- <view class="reload" bindtap="reLoadVideo">
+	</swiper>
+	<!-- 视频播放卡慢，或者出错的时候触发 -->
+	<!-- <view class="reload" bindtap="reLoadVideo">
     <text>{{videoHini}}</text>
     <image 
      class="reload-img"

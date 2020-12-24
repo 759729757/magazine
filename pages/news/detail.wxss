@@ -1,8 +1,7 @@
 /* pages/news/detail.wxss */
+@import "/utils/quill_core.wxss";
 .content{
-  width: 90%;margin: 10px 5%;line-height: 24px;
- 
-}
+  width: 90%;margin: 10px 5%;line-height: 24px;}
 .info{
   margin-bottom: 30px;
 }
@@ -19,5 +18,19 @@ video{
 .cover-bg,swiper,.banner-warp{width: 100%;height: 100vh;position: relative;}
 swiper image{
   width: 100%;
+}
+.small-text{
+  font-size: small;
+}
+swiper{
+  width: calc(100% - 40px);
+  margin-left: 20px;
+}
+swiper-item{
+  padding-left:20px;box-sizing: border-box;
+}
+.footer-author{
+  margin-top: 30px;
+  float: right;
 }
 

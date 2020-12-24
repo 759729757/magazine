@@ -10,6 +10,25 @@
   /* min-height: 3.4em; */
 }
 
+/* pages/news/news.wxss */
+
+
+.item{
+  width: 90%;margin: 10px 5%;
+  text-align: center;
+  margin-bottom: 15px;
+}
+.item:first-child{
+  margin-top: 30px;
+}
+.poster{
+  width: 100%
+}
+.title{
+  width: 100%;text-align: center;font-size: 14px;
+  color: #666;padding: 8px 0;
+}
+
 
 
 
