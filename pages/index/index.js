@@ -157,7 +157,8 @@ Page({
       success: function (data) {
         console.log('init', data);
         self.setData({
-          banner: [data.data.data.shift()],
+          // banner: [data.data.data.shift()],
+          banner: data.data.data,
           top: data.data.data,
           total: parseInt(self.data.total) + parseInt(data.data.data.length)
         });

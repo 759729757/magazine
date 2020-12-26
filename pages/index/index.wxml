@@ -1,4 +1,3 @@
-
 <!-- <button open-type="getPhoneNumber" bindgetphonenumber="getPhoneNumber">2323</button> -->
 
 <!-- 内容 -->
@@ -6,7 +5,37 @@
   <view>
     <view class="main">
 
-      <block wx:for="{{banner}}" wx:key="key">
+
+      <view class="nav-warp">
+        <view class="title">
+          {{banner[bannerId].name}}
+        </view>
+        <view class="subTitle">
+          {{banner[bannerId].sold}} 次订阅
+          <!-- {{banner[bannerId].subTitle}} -->
+        </view>
+      </view>
+      <view class="part-warp">
+        <swiper autoplay="{{autoplay}}" circular previous-margin="70rpx" next-margin="70rpx"
+          bindanimationfinish="bannerChange" easing-function="easeOutCubic" interval="{{interval}}"
+          duration="{{duration}}">
+          <block wx:for="{{banner}}" wx:key="key">
+            <swiper-item class='box'>
+              <view class="banner-warp flex-col" data-bookid="{{ item._id }}" bindtap="goMgz">
+                <image class="banner-image" bindload="imgLoad" mode="widthFix"
+                  src="{{ item.headImg }}" />
+                <!-- <view class="flex subscript">
+                  <image class="icon" src="/images/sold.png"></image>
+                  已有 {{item.sold}} 人订阅
+                </view> -->
+              </view>
+            </swiper-item>
+          </block>
+        </swiper>
+      </view>
+
+
+      <!-- <block wx:for="{{banner}}" wx:key="key">
         <view class='box'>
           <view class="banner-warp flex-col"  >
             <image class="banner-image" bindload="imgLoad" 
@@ -24,33 +53,32 @@
             </view>
           </view>
         </view>
-      </block>
+      </block> -->
 
     </view>
   </view>
 
+
   <!-- 下面是热门 -->
   <view>
-    <view wx:if="{{top.length}}" class="box">
-      <!-- <view class="container top-warp">
+    <view wx:if="{{top.length}}">
+      <view class="container top-warp">
         <view class="title text-left session">
           热门TOP10
-        </view> 
-      </view> -->
-      <view class="container  commend">
-        <view wx:for="{{top}}" wx:key="key" class="flex-row item-list item" data-bookid="{{ item._id }}" >
-          <!-- <view class="badge {{index%2 ? 'pull-right':'pull-left'}}">{{index+1}}</view> -->
-            <image class="poster-md" mode="widthFix" bindload="imgLoad" src="{{item.headImg }}"></image>
-          <view class="pic flex flex-col">
-            <view class="describe text-left title-warp">{{item.name}}</view>
-            <view class="text-sm text-left">
-              <!-- <image src="/images/fire.png" class="icon"></image> -->
+        </view>
+      </view>
+      <view class="container flex flex-between">
+        <view wx:for="{{top}}" wx:key="key" class="item-5 item" data-bookid="{{ item._id }}" bindtap="goMgz">
+          <view class="badge {{index%2 ? 'pull-right':'pull-left'}}">{{index+1}}</view>
+          <view class="pic">
+            <image mode="widthFix" bindload="widthFix" src="{{ item.headImg }}"></image>
+            <view class="describe">{{item.name}}</view>
+            <view class="text-sm">
+              <image src="/images/fire.png" class="icon"></image>
               <text>{{item.sold}} 订阅</text>
             </view>
-            <view class="btn black" data-bookid="{{ item._id }}" bindtap="goMgz" >阅读</view>
           </view>
         </view>
-
       </view>
     </view>
   </view>
